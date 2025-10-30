@@ -35,11 +35,11 @@ end
 local function resize_nav(direction_wez, direction_nvim)
    return {
       key = direction_nvim,
-      mods = 'META',
+      mods = 'SUPER|ALT',
       action = wezterm.action_callback(function(win, pane)
          if is_vim(pane) then
             -- Pass through to nvim
-            win:perform_action(act.SendKey({ key = direction_nvim, mods = 'META' }), pane)
+            win:perform_action(act.SendKey({ key = direction_nvim, mods = 'SUPER|ALT' }), pane)
          else
             -- Resize wezterm panes
             win:perform_action(act.AdjustPaneSize({ direction_wez, 3 }), pane)
@@ -126,28 +126,7 @@ local keys = {
    -- Fullscreen
    { key = 'f', mods = 'SUPER|CTRL', action = act.ToggleFullScreen },
 
-   -- Background controls
-   {
-      key = '/',
-      mods = 'SUPER|ALT',
-      action = wezterm.action_callback(function(window, _)
-         backdrops:random(window)
-      end),
-   },
-   {
-      key = ',',
-      mods = 'SUPER|ALT',
-      action = wezterm.action_callback(function(window, _)
-         backdrops:cycle_back(window)
-      end),
-   },
-   {
-      key = '.',
-      mods = 'SUPER|ALT',
-      action = wezterm.action_callback(function(window, _)
-         backdrops:cycle_forward(window)
-      end),
-   },
+   -- Background selector (keep CMD+CTRL+/ for manual selection if needed)
    {
       key = '/',
       mods = mod.SUPER_REV,
@@ -161,15 +140,6 @@ local keys = {
             end
          end),
       }),
-   },
-
-   -- Focus mode toggle
-   {
-      key = 'f',
-      mods = 'SUPER|ALT',
-      action = wezterm.action_callback(function(window, _)
-         backdrops:toggle_focus(window)
-      end),
    },
 
    -- Panes

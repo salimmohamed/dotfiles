@@ -58,8 +58,10 @@ return {
         end
 
         -- Execute in terminal 1, horizontal split, 35% height
+        -- Clear terminal before running for fresh output
         local size = math.floor(vim.o.lines * 0.35)
-        require("toggleterm").exec(cmd, 1, size, nil, "horizontal")
+        local clear_and_run = "clear && " .. cmd
+        require("toggleterm").exec(clear_and_run, 1, size, nil, "horizontal")
       end,
       desc = "Run current file in terminal",
     },

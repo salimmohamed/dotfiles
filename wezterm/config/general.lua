@@ -33,6 +33,12 @@ return {
    send_composed_key_when_left_alt_is_pressed = false,
    send_composed_key_when_right_alt_is_pressed = false,
 
+   -- Background rotation settings
+   -- Automatic rotation every 30 minutes (configured in events/right-status.lua)
+   -- To adjust interval, edit ROTATION_INTERVAL in events/right-status.lua:
+   --   900 = 15 minutes | 1800 = 30 minutes | 3600 = 1 hour
+   -- Rotation pauses during focus mode automatically
+
    -- Hyperlink rules
    hyperlink_rules = {
       -- Matches: a URL in parens: (URL)

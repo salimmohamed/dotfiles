@@ -15,11 +15,11 @@ return {
     { "<C-k>", [[<Cmd>wincmd k<CR>]], mode = "t", desc = "Move to above split (terminal)" },
     { "<C-l>", [[<Cmd>wincmd l<CR>]], mode = "t", desc = "Move to right split (terminal)" },
 
-    -- Resizing (Alt/Option+hjkl on Mac)
-    { "<A-h>", function() require("smart-splits").resize_left() end, desc = "Resize split left" },
-    { "<A-j>", function() require("smart-splits").resize_down() end, desc = "Resize split down" },
-    { "<A-k>", function() require("smart-splits").resize_up() end, desc = "Resize split up" },
-    { "<A-l>", function() require("smart-splits").resize_right() end, desc = "Resize split right" },
+    -- Resizing (CMD+ALT+hjkl on Mac - avoids AeroSpace conflict)
+    { "<D-A-h>", function() require("smart-splits").resize_left() end, desc = "Resize split left" },
+    { "<D-A-j>", function() require("smart-splits").resize_down() end, desc = "Resize split down" },
+    { "<D-A-k>", function() require("smart-splits").resize_up() end, desc = "Resize split up" },
+    { "<D-A-l>", function() require("smart-splits").resize_right() end, desc = "Resize split right" },
   },
   opts = {
     -- Ignore filetrees and other UI panels

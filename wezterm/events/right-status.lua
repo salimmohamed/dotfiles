@@ -1,9 +1,25 @@
 local wezterm = require('wezterm')
+local backdrops = require('utils.backdrops')
 
 local M = {}
 
+-- Background rotation timer state
+local rotation_counter = 0
+local ROTATION_INTERVAL = 1800 -- 30 minutes in seconds
+
 M.setup = function()
    wezterm.on('update-right-status', function(window, pane)
+      -- Background rotation logic (runs every second)
+      rotation_counter = rotation_counter + 1
+      if rotation_counter >= ROTATION_INTERVAL then
+         -- Only rotate if not in focus mode and has images
+         if not backdrops.focus_on and #backdrops.images > 0 then
+            backdrops:random(window)
+         end
+         rotation_counter = 0
+      end
+
+      -- Status bar items
       local status_items = {}
 
       -- Leader indicator
