@@ -1,0 +1,83 @@
+cd
+cd learn
+ls
+cd capstone
+ls
+cd
+z capst
+claude
+brew install neofetch
+neofetch --help
+neofetch
+claude
+ls
+cd wezterm
+ls
+ls
+cd config
+ls
+cd .
+..
+sudo ..
+...
+z wez
+ls
+nvim
+cd
+ls
+cd learn
+cd
+cd projects
+ls
+cd aibot
+git status
+ls
+cd
+cd Learn
+cd Archive/
+ls
+cd .config
+ls
+mkdir wezterm
+ls
+cd wezterm
+claude
+ls
+brew tap homebrew/cask-fonts\
+brew install font-jetbrains-mono-nerd-font
+\:q
+claude
+nvim
+nvim
+nvim
+ls
+cd .config
+ls
+cd wezterm
+claude
+n
+nvim
+acli rovode
+acli rovodev
+claude
+cd config
+cd .
+cd
+cd config
+z config
+z help
+z --help
+ls
+zoxide --help
+zoxide remove 
+cd
+z config
+zoxide remove .config/wezterm/config
+zoxide remove .
+cd
+z config
+git init
+git commit "initial"
+git commit 'initial'
+git
+lazygit
