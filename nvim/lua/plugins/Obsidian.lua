@@ -59,16 +59,68 @@ return {
         -- If tomorrow's leetcode note doesn't exist, create it with template
         if vim.fn.filereadable(leetcode_file) == 0 then
           vim.cmd("edit " .. leetcode_file)
-          vim.cmd("ObsidianTemplate Leetcode")
+          -- Manually insert tomorrow's leetcode template with correct date
+          local time_format = os.date("%H:%M")
+          local leetcode_content = {
+            date_format,
+            time_format,
+            "",
+            "Tags: [[Main/3 - Tags/LeetCode]] [[NeetCode]] [[Data Structures]] [[Algorithms]] [[Problem-Solving]]",
+            "",
+            "# " .. date_format,
+            "",
+            "# Thinking:",
+            "",
+            "",
+            "# Solution:",
+            "",
+          }
+          vim.api.nvim_buf_set_lines(0, 0, -1, false, leetcode_content)
           vim.cmd("write")
         end
 
         -- Open/create tomorrow's regimen file
         vim.cmd("edit " .. regimen_file)
 
-        -- If file is new, insert template
+        -- If file is new, insert template with tomorrow's date
         if vim.fn.line('$') == 1 and vim.fn.getline(1) == '' then
-          vim.cmd("ObsidianTemplate DailyRegimen")
+          local time_format = os.date("%H:%M")
+          local regimen_content = {
+            date_format,
+            time_format,
+            "",
+            "Tags: [[DailyRegimen]] [[Habits]]",
+            "",
+            "# " .. date_format,
+            "",
+            "## Non-Negotiables",
+            "- [ ] Daily Leetcode",
+            "- [ ] Daily System Design",
+            "- [ ] Daily Homework",
+            "",
+            "---",
+            "",
+            "## Morning (9:00 AM - 12:00 PM)",
+            "- [ ]",
+            "- [ ]",
+            "- [ ]",
+            "",
+            "## Afternoon (12:00 PM - 6:00 PM)",
+            "- [ ]",
+            "- [ ]",
+            "- [ ]",
+            "",
+            "## Evening (6:00 PM - 10:45 PM)",
+            "- [ ]",
+            "- [ ]",
+            "- [ ]",
+            "",
+            "---",
+            "",
+            "## Notes",
+            "",
+          }
+          vim.api.nvim_buf_set_lines(0, 0, -1, false, regimen_content)
         end
       end,
       desc = "Open tomorrow's daily regimen"

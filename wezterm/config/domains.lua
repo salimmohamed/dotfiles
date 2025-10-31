@@ -10,11 +10,12 @@ return {
       },
    },
 
-   -- Auto-connect to unix domain on startup for persistent sessions
+   -- Automatically connect to unix domain on startup
+   -- This enables persistence of all tabs, panes, and workspaces
    default_gui_startup_args = { 'connect', 'unix' },
 
    -- Default workspace name
-   default_workspace = 'dev',
+   default_workspace = 'default',
 
    -- SSH domains (can be extended later)
    ssh_domains = {},

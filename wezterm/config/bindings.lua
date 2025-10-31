@@ -186,30 +186,6 @@ local keys = {
       }),
    },
 
-   -- Mux domain management
-   {
-      key = 'a',
-      mods = 'LEADER',
-      action = act.AttachDomain('unix'),
-   },
-   {
-      key = 'd',
-      mods = 'LEADER',
-      action = act.DetachDomain({ DomainName = 'unix' }),
-   },
-   {
-      key = '$',
-      mods = 'LEADER|SHIFT',
-      action = act.PromptInputLine({
-         description = 'Enter new workspace name:',
-         action = wezterm.action_callback(function(window, pane, line)
-            if line then
-               wezterm.mux.rename_workspace(window:mux_window():get_workspace(), line)
-            end
-         end),
-      }),
-   },
-
    -- Scrolling
    { key = 'PageUp', mods = 'NONE', action = act.ScrollByPage(-0.75) },
    { key = 'PageDown', mods = 'NONE', action = act.ScrollByPage(0.75) },
