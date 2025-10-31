@@ -10,6 +10,19 @@ return {
             ["textDocument/publishDiagnostics"] = function() end,
           },
         },
+        pyright = {
+          capabilities = {
+            textDocument = {
+              signatureHelp = vim.NIL,
+            },
+          },
+          on_attach = function(client, bufnr)
+            -- Forcefully disable signature help provider
+            if client.server_capabilities then
+              client.server_capabilities.signatureHelpProvider = nil
+            end
+          end,
+        },
       },
     },
   },

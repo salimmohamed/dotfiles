@@ -11,6 +11,68 @@ return {
     { "<leader>ot", "<cmd>ObsidianToday<cr>", desc = "Open today's note" },
     { "<leader>oy", "<cmd>ObsidianYesterday<cr>", desc = "Open yesterday's note" },
     { "<leader>om", "<cmd>ObsidianTomorrow<cr>", desc = "Open tomorrow's note" },
+    {
+      "<leader>od",
+      function()
+        local regimen_folder = vim.fn.expand("~/Learn/Notes/Main/7 - Daily Regimen")
+        local leetcode_folder = vim.fn.expand("~/Learn/Notes/Main/2 - Source Material/Leetcode")
+        local date_format = os.date("%B %d %Y")
+        local regimen_file = regimen_folder .. "/" .. date_format .. ".md"
+        local leetcode_file = leetcode_folder .. "/" .. date_format .. ".md"
+
+        -- Create folders if they don't exist
+        vim.fn.mkdir(regimen_folder, "p")
+        vim.fn.mkdir(leetcode_folder, "p")
+
+        -- If leetcode note doesn't exist, create it with template
+        if vim.fn.filereadable(leetcode_file) == 0 then
+          vim.cmd("edit " .. leetcode_file)
+          vim.cmd("ObsidianTemplate Leetcode")
+          vim.cmd("write")
+        end
+
+        -- Open/create the regimen file
+        vim.cmd("edit " .. regimen_file)
+
+        -- If file is new, insert template
+        if vim.fn.line('$') == 1 and vim.fn.getline(1) == '' then
+          vim.cmd("ObsidianTemplate DailyRegimen")
+        end
+      end,
+      desc = "Open daily regimen"
+    },
+    {
+      "<leader>oD",
+      function()
+        local regimen_folder = vim.fn.expand("~/Learn/Notes/Main/7 - Daily Regimen")
+        local leetcode_folder = vim.fn.expand("~/Learn/Notes/Main/2 - Source Material/Leetcode")
+        -- Calculate tomorrow's date (current time + 24 hours)
+        local tomorrow = os.time() + (24 * 60 * 60)
+        local date_format = os.date("%B %d %Y", tomorrow)
+        local regimen_file = regimen_folder .. "/" .. date_format .. ".md"
+        local leetcode_file = leetcode_folder .. "/" .. date_format .. ".md"
+
+        -- Create folders if they don't exist
+        vim.fn.mkdir(regimen_folder, "p")
+        vim.fn.mkdir(leetcode_folder, "p")
+
+        -- If tomorrow's leetcode note doesn't exist, create it with template
+        if vim.fn.filereadable(leetcode_file) == 0 then
+          vim.cmd("edit " .. leetcode_file)
+          vim.cmd("ObsidianTemplate Leetcode")
+          vim.cmd("write")
+        end
+
+        -- Open/create tomorrow's regimen file
+        vim.cmd("edit " .. regimen_file)
+
+        -- If file is new, insert template
+        if vim.fn.line('$') == 1 and vim.fn.getline(1) == '' then
+          vim.cmd("ObsidianTemplate DailyRegimen")
+        end
+      end,
+      desc = "Open tomorrow's daily regimen"
+    },
 
     -- Note management
     { "<leader>on", "<cmd>ObsidianNew<cr>", desc = "Create new note" },

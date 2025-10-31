@@ -10,8 +10,11 @@ return {
       },
    },
 
+   -- Auto-connect to unix domain on startup for persistent sessions
+   default_gui_startup_args = { 'connect', 'unix' },
+
    -- Default workspace name
-   default_workspace = 'default',
+   default_workspace = 'dev',
 
    -- SSH domains (can be extended later)
    ssh_domains = {},

@@ -72,8 +72,17 @@ return {
             on_exit = function()
               -- Return focus to original window when process exits
               vim.schedule(function()
+                -- Only switch if:
+                -- 1. Origin window is still valid
+                -- 2. We're not in the middle of another operation
+                -- 3. The current mode allows window switching
                 if vim.api.nvim_win_is_valid(origin_win) then
-                  vim.api.nvim_set_current_win(origin_win)
+                  local current_win = vim.api.nvim_get_current_win()
+                  -- Only switch if we're still in a terminal or the terminal window
+                  local current_buf = vim.api.nvim_win_get_buf(current_win)
+                  if vim.bo[current_buf].buftype == "terminal" or current_win == term.window then
+                    pcall(vim.api.nvim_set_current_win, origin_win)
+                  end
                 end
               end)
             end,
@@ -82,8 +91,17 @@ return {
           -- Update existing terminal's on_exit callback
           term.on_exit = function()
             vim.schedule(function()
+              -- Only switch if:
+              -- 1. Origin window is still valid
+              -- 2. We're not in the middle of another operation
+              -- 3. The current mode allows window switching
               if vim.api.nvim_win_is_valid(origin_win) then
-                vim.api.nvim_set_current_win(origin_win)
+                local current_win = vim.api.nvim_get_current_win()
+                -- Only switch if we're still in a terminal or the terminal window
+                local current_buf = vim.api.nvim_win_get_buf(current_win)
+                if vim.bo[current_buf].buftype == "terminal" or current_win == term.window then
+                  pcall(vim.api.nvim_set_current_win, origin_win)
+                end
               end
             end)
           end

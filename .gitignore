@@ -1,3 +1,58 @@
-wezterm copy
-nvim/.DS_Store
+# macOS System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.AppleDouble
+.LSOverride
+Icon
+.DocumentRevisions-V100
+.fseventsd
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Shell History & Sessions
 zsh/.zsh_history
+zsh/.zsh_sessions/
+fish/fish_variables
+fish/*.fish.save
+
+# Editor Swap & Backup Files
+*.swp
+*.swo
+*~
+*.sublime-*
+.idea/
+.vscode/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build artifacts
+*.map
+*.o
+*.obj
+*.class
+
+# Cache directories
+.cache/
+*.cache
+
+# Neovim (additional temp files - most are in stdpath("data"))
+nvim/.DS_Store
+
+# Raycast (build artifacts)
+raycast/extensions/*/node_modules/
+raycast/extensions/*/*.map
+
+# Wezterm
+wezterm copy
