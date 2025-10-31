@@ -2,6 +2,7 @@ local wezterm = require('wezterm')
 local platform = require('utils.platform')
 local backdrops = require('utils.backdrops')
 local is_vim = require('utils.is-vim')
+local smart_close = require('utils.smart-close')
 local act = wezterm.action
 
 local mod = {}
@@ -89,7 +90,7 @@ local keys = {
 
    -- Tabs
    { key = 't', mods = mod.SUPER, action = act.SpawnTab('CurrentPaneDomain') },
-   { key = 'w', mods = mod.SUPER, action = act.CloseCurrentTab({ confirm = false }) },
+   { key = 'w', mods = mod.SUPER, action = smart_close.smart_close_tab },
 
    -- Tab navigation
    { key = '[', mods = mod.SUPER_REV, action = act.ActivateTabRelative(-1) },
@@ -145,7 +146,7 @@ local keys = {
    -- Panes
    { key = 'd', mods = mod.SUPER, action = act.SplitHorizontal({ domain = 'CurrentPaneDomain' }) },
    { key = 'd', mods = mod.SUPER_REV, action = act.SplitVertical({ domain = 'CurrentPaneDomain' }) },
-   { key = 'w', mods = mod.SUPER_REV, action = act.CloseCurrentPane({ confirm = false }) },
+   { key = 'w', mods = mod.SUPER_REV, action = smart_close.smart_close_pane },
    { key = 'Enter', mods = mod.SUPER_REV, action = act.TogglePaneZoomState },
 
    -- Pane selection
