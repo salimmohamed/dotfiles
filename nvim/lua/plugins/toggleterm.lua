@@ -57,11 +57,61 @@ return {
           return
         end
 
-        -- Execute in terminal 1, horizontal split, 35% height
-        -- Clear terminal before running for fresh output
+        -- Store the original window to return to after process exits
+        local origin_win = vim.api.nvim_get_current_win()
+
+        -- Get or create terminal 1 with on_exit callback
+        local Terminal = require("toggleterm.terminal").Terminal
+        local term = require("toggleterm.terminal").get(1)
+
+        if not term then
+          -- Create terminal 1 with on_exit callback
+          term = Terminal:new({
+            id = 1,
+            direction = "horizontal",
+            on_exit = function()
+              -- Return focus to original window when process exits
+              vim.schedule(function()
+                if vim.api.nvim_win_is_valid(origin_win) then
+                  vim.api.nvim_set_current_win(origin_win)
+                end
+              end)
+            end,
+          })
+        else
+          -- Update existing terminal's on_exit callback
+          term.on_exit = function()
+            vim.schedule(function()
+              if vim.api.nvim_win_is_valid(origin_win) then
+                vim.api.nvim_set_current_win(origin_win)
+              end
+            end)
+          end
+        end
+
+        -- Clear and run the command, wait 10s (or Enter to skip), then exit
         local size = math.floor(vim.o.lines * 0.35)
-        local clear_and_run = "clear && " .. cmd
-        require("toggleterm").exec(clear_and_run, 1, size, nil, "horizontal")
+        -- Add 10s timer before exit - press Enter to skip and return immediately
+        -- Use curly braces to group commands and ensure they all execute
+        local clear_and_run = "clear && { " .. cmd .. "; echo ''; echo 'Press Enter to return (or wait 10s)...'; read -t 10 || true; }; exit"
+
+        -- Open terminal if not visible, then send command
+        if not term:is_open() then
+          term:open(size, "horizontal")
+        end
+
+        -- Send the command to the terminal
+        term:send(clear_and_run)
+
+        -- Focus terminal and enter insert mode after a short delay
+        vim.defer_fn(function()
+          if term:is_open() and term.window then
+            -- Focus the terminal window
+            vim.api.nvim_set_current_win(term.window)
+            -- Enter insert mode
+            vim.cmd("startinsert")
+          end
+        end, 50)
       end,
       desc = "Run current file in terminal",
     },
