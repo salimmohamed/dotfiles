@@ -3,6 +3,7 @@ local platform = require('utils.platform')
 local backdrops = require('utils.backdrops')
 local is_vim = require('utils.is-vim')
 local smart_close = require('utils.smart-close')
+local ensure_workspaces = require('utils.ensure-workspaces')
 local act = wezterm.action
 
 local mod = {}
@@ -185,6 +186,11 @@ local keys = {
             end
          end),
       }),
+   },
+   {
+      key = 'F5',
+      mods = 'ALT|SHIFT',
+      action = ensure_workspaces.ensure_all_workspaces,
    },
 
    -- Scrolling
