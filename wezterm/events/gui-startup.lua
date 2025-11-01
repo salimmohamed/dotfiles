@@ -44,8 +44,10 @@ M.setup = function()
          end
       end
 
-      -- Set school as the active workspace
-      mux.set_active_workspace('school')
+      -- NOTE: Removed mux.set_active_workspace('school') due to WezTerm bug
+      -- In unix domains, set_active_workspace during mux-startup causes windows
+      -- to be incorrectly reassigned to the active workspace (issues #2984, #4527)
+      -- Instead, we use default_workspace = 'school' in domains.lua
    end)
 
    -- Use gui-attached for GUI operations like maximizing

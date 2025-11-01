@@ -15,7 +15,8 @@ return {
    default_gui_startup_args = { 'connect', 'unix' },
 
    -- Default workspace name
-   default_workspace = 'default',
+   -- Set to 'school' to start in school workspace on launch
+   default_workspace = 'school',
 
    -- SSH domains (can be extended later)
    ssh_domains = {},
