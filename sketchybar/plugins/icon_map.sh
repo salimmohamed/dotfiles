@@ -1,321 +1,258 @@
 #!/bin/bash
 
-# Icon mapping for applications
+# Icon mapping for applications using sketchybar-app-font
 # Returns an appropriate icon for a given application name
-# Based on omerxx's comprehensive app mapping
 
 case $1 in
 # Browsers
 "Safari" | "Safari Technology Preview")
-	echo "󰀹"
+	echo ":safari:"
 	;;
 "Google Chrome" | "Chrome")
-	echo ""
+	echo ":google_chrome:"
 	;;
 "Brave Browser" | "Brave")
-	echo "󰖟"
+	echo ":brave_browser:"
 	;;
 "Arc")
-	echo "󰞍"
+	echo ":arc:"
 	;;
 "Firefox" | "Firefox Developer Edition")
-	echo ""
+	echo ":firefox:"
 	;;
 "Microsoft Edge")
-	echo "󰇩"
-	;;
-"Opera")
-	echo ""
+	echo ":microsoft_edge:"
 	;;
 
 # Terminals
 "WezTerm" | "wezterm-gui")
-	echo ""
+	echo ":wezterm:"
 	;;
 "iTerm2" | "iTerm")
-	echo ""
+	echo ":iterm:"
 	;;
 "Terminal" | "Terminal.app")
-	echo ""
+	echo ":terminal:"
 	;;
 "Alacritty")
-	echo""
+	echo ":alacritty:"
 	;;
 "kitty")
-	echo "󰄛"
+	echo ":kitty:"
 	;;
 "Ghostty")
-	echo "󰊠"
+	echo ":ghostty:"
 	;;
 
-# Development
-"Code" | "Visual Studio Code" | "VSCode")
-	echo "󰨞"
+# Editors & IDEs
+"Visual Studio Code" | "Code" | "VSCode")
+	echo ":visual_studio_code:"
 	;;
-"Xcode")
-	echo"󰀵"
+"Cursor")
+	echo ":cursor:"
 	;;
-"Android Studio")
-	echo""
+"Neovim" | "nvim")
+	echo ":vim:"
 	;;
 "IntelliJ IDEA" | "IntelliJ")
-	echo""
+	echo ":intelli_j:"
 	;;
 "PyCharm")
-	echo""
+	echo ":pycharm:"
 	;;
 "WebStorm")
-	echo""
+	echo ":webstorm:"
 	;;
-"Neovim" | "VimR" | "MacVim")
-	echo""
+"Xcode")
+	echo ":xcode:"
 	;;
 "Sublime Text")
-	echo""
+	echo ":sublime_text:"
 	;;
 
 # Communication
 "Slack")
-	echo "󰒱"
+	echo ":slack:"
 	;;
 "Discord")
-	echo"󰙯"
-	;;
-"Telegram" | "Telegram Desktop")
-	echo""
-	;;
-"Messages" | "Nachrichten")
-	echo"󰍦"
-	;;
-"WhatsApp")
-	echo""
-	;;
-"Signal")
-	echo"󰍡"
-	;;
-"Zoom" | "zoom.us")
-	echo""
+	echo ":discord:"
 	;;
 "Microsoft Teams" | "Teams")
-	echo"󰊻"
+	echo ":microsoft_teams:"
 	;;
-"Skype")
-	echo""
+"Zoom" | "zoom.us")
+	echo ":zoom:"
+	;;
+"Messages" | "信息")
+	echo ":messages:"
+	;;
+"Telegram")
+	echo ":telegram:"
+	;;
+"WhatsApp")
+	echo ":whats_app:"
+	;;
+"Signal")
+	echo ":signal:"
 	;;
 
 # Mail
 "Mail" | "邮件")
-	echo"󰇮"
+	echo ":mail:"
 	;;
 "Spark")
-	echo"󰇮"
+	echo ":spark:"
 	;;
 "Outlook" | "Microsoft Outlook")
-	echo"󰴢"
-	;;
-"Thunderbird")
-	echo""
+	echo ":microsoft_outlook:"
 	;;
 
 # Productivity
 "Notion")
-	echo"󰈚"
+	echo ":notion:"
 	;;
 "Obsidian")
-	echo""
+	echo ":obsidian:"
 	;;
 "Notes" | "备忘录")
-	echo"󱞎"
+	echo ":notes:"
 	;;
 "Reminders" | "提醒事项")
-	echo""
+	echo ":reminders:"
 	;;
 "Todoist")
-	echo""
+	echo ":todoist:"
 	;;
 "Trello")
-	echo""
+	echo ":trello:"
 	;;
 "Asana")
-	echo""
+	echo ":asana:"
 	;;
 "OneNote")
-	echo"󰝇"
-	;;
-"Evernote")
-	echo""
+	echo ":onenote:"
 	;;
 
 # Design
 "Figma")
-	echo""
+	echo ":figma:"
 	;;
 "Sketch")
-	echo""
+	echo ":sketch:"
 	;;
 "Adobe Photoshop" | "Photoshop")
-	echo""
+	echo ":adobe_photoshop:"
 	;;
 "Adobe Illustrator" | "Illustrator")
-	echo""
+	echo ":adobe_illustrator:"
 	;;
 "Adobe XD")
-	echo""
+	echo ":adobe_xd:"
 	;;
 "Blender")
-	echo"󰂫"
-	;;
-"Affinity Designer")
-	echo""
-	;;
-"Affinity Photo")
-	echo""
+	echo ":blender:"
 	;;
 
 # Media
 "Spotify")
-	echo""
+	echo ":spotify:"
 	;;
 "Music" | "音乐")
-	echo"󰝚"
+	echo ":music:"
 	;;
 "TV" | "Apple TV")
-	echo"󰝆"
+	echo ":tv:"
 	;;
 "VLC")
-	echo"󰕼"
+	echo ":vlc:"
 	;;
 "IINA")
-	echo"󰕼"
-	;;
-"mpv")
-	echo""
-	;;
-"QuickTime Player" | "QuickTime")
-	echo""
-	;;
-"Final Cut Pro")
-	echo""
-	;;
-"Adobe Premiere Pro" | "Premiere Pro")
-	echo""
+	echo ":iina:"
 	;;
 
 # System & Utilities
 "Finder" | "访达")
-	echo"󰀶"
+	echo ":finder:"
 	;;
 "System Settings" | "System Preferences" | "系统设置")
-	echo""
+	echo ":gear:"
 	;;
 "Activity Monitor")
-	echo"󰔰"
+	echo ":activity_monitor:"
 	;;
 "Calculator" | "计算器")
-	echo"󰃬"
+	echo ":calculator:"
 	;;
 "Calendar" | "日历")
-	echo""
+	echo ":calendar:"
 	;;
 "Contacts" | "通讯录")
-	echo"󰛃"
-	;;
-"Home")
-	echo"󰋜"
+	echo ":contacts:"
 	;;
 "Photos" | "照片")
-	echo"󰉏"
+	echo ":photos:"
 	;;
 "Preview")
-	echo""
+	echo ":default:"
 	;;
 "App Store")
-	echo""
+	echo ":app_store:"
 	;;
 
 # DevOps & Cloud
 "Docker" | "Docker Desktop")
-	echo""
-	;;
-"Kubernetes")
-	echo"󱃾"
+	echo ":docker:"
 	;;
 "TablePlus")
-	echo"󰆼"
+	echo ":table_plus:"
 	;;
 "Postman")
-	echo""
-	;;
-"Insomnia")
-	echo""
-	;;
-
-# Virtualization
-"UTM")
-	echo"󰢹"
-	;;
-"Parallels Desktop" | "Parallels")
-	echo""
-	;;
-"VMware Fusion")
-	echo""
-	;;
-"VirtualBox")
-	echo""
+	echo ":postman:"
 	;;
 
 # Office
 "Microsoft Word" | "Word")
-	echo"󰈬"
+	echo ":microsoft_word:"
 	;;
 "Microsoft Excel" | "Excel")
-	echo"󰈛"
+	echo ":microsoft_excel:"
 	;;
 "Microsoft PowerPoint" | "PowerPoint")
-	echo"󰈧"
+	echo ":microsoft_power_point:"
 	;;
 "Pages")
-	echo""
+	echo ":pages:"
 	;;
 "Numbers")
-	echo""
+	echo ":numbers:"
 	;;
 "Keynote")
-	echo""
+	echo ":keynote:"
 	;;
 
 # Reading & Reference
 "Books" | "图书")
-	echo"󰂺"
-	;;
-"PDF Expert")
-	echo""
+	echo ":books:"
 	;;
 "Kindle")
-	echo""
-	;;
-"Reeder")
-	echo""
+	echo ":kindle:"
 	;;
 
 # Gaming
 "Steam")
-	echo""
-	;;
-"Epic Games")
-	echo""
+	echo ":steam:"
 	;;
 
 # Security & VPN
 "1Password")
-	echo""
+	echo ":one_password:"
 	;;
 "Bitwarden")
-	echo""
+	echo ":bit_warden:"
 	;;
 
 # Default fallback
 *)
-	echo""
+	echo ":default:"
 	;;
 esac
