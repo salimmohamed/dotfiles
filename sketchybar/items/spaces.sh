@@ -11,8 +11,8 @@ PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
 # Register aerospace workspace change event
 sketchybar --add event aerospace_workspace_change
 
-# Dynamically create workspace items from aerospace
-for sid in $(/opt/homebrew/bin/aerospace list-workspaces --all 2>/dev/null); do
+# Create workspace items for workspaces 1, 2, 3 only
+for sid in 1 2 3; do
 	SID_LOWER=$(echo "$sid" | tr '[:upper:]' '[:lower:]')
 
 	sketchybar --add item "space.$SID_LOWER" left \

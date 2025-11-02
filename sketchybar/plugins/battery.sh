@@ -6,11 +6,9 @@
 source "$HOME/.config/sketchybar/icons.sh"
 source "$HOME/.config/sketchybar/colors.sh"
 
-# Get battery percentage from stats_provider environment variable
-PERCENTAGE="${BATTERY_PERCENTAGE:-0}"
-
-# Remove any units if present
-PERCENTAGE=$(echo "$PERCENTAGE" | sed 's/[^0-9.]//g')
+# Get battery percentage directly from pmset
+PERCENTAGE=$(pmset -g batt | grep -Eo "\d+%" | cut -d% -f1)
+PERCENTAGE="${PERCENTAGE:-0}"
 PERCENTAGE_INT=$(printf "%.0f" "$PERCENTAGE")
 
 # Check if charging (requires pmset for now, stats_provider doesn't provide state)
