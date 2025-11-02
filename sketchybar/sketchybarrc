@@ -80,12 +80,13 @@ source "$ITEM_DIR/apple.sh"
 # Load workspace indicators (dynamic from aerospace)
 source "$ITEM_DIR/spaces.sh"
 
-# Front App (shows currently focused application)
+# Front App (shows currently focused application with icon)
 sketchybar --add item front_app left \
            --set front_app \
-                 icon.drawing=off \
-                 label.color=$ACCENT_COLOR \
-                 label.font="SF Pro:Medium:13.0" \
+                 icon.drawing=on \
+                 icon.font="sketchybar-app-font:Regular:16.0" \
+                 icon.color=$TEXT_COLOR \
+                 label.drawing=off \
                  background.padding_left=12 \
                  script="$PLUGIN_DIR/front_app.sh" \
            --subscribe front_app front_app_switched
@@ -104,8 +105,8 @@ sketchybar --add item wifi right \
 # Battery
 sketchybar --add item battery right \
            --set battery \
-                 script="$PLUGIN_DIR/battery.sh" \
-           --subscribe battery system_stats
+                 update_freq=10 \
+                 script="$PLUGIN_DIR/battery.sh"
 
 # Clock
 sketchybar --add item clock right \
