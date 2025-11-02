@@ -1,34 +1,34 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-# Aerospace plugin - DuroCodes exact implementation
-# Shows app icons for windows in each workspace
+# AeroSpace workspace indicator plugin for Sketchybar
+# Highlights active workspace and dims inactive ones
 
-FOCUSED_WORKSPACE=$(aerospace list-workspaces --focused)
-
-update_workspace_icon() {
-    local workspace_id=$1
-
-    # Get all windows in this workspace and map to icons
-    local APP_ICONS=$(aerospace list-windows --workspace "$workspace_id" 2>/dev/null |
-        awk -F '|' '{print $2}' |
-        while read -r app_name; do
-            "$CONFIG_DIR/plugins/icon_map_fn.sh" "$app_name"
-        done | tr '\n' ' ')
-
-    # Trim whitespace
-    APP_ICONS=$(echo "$APP_ICONS" | xargs)
-
-    # Show circle for empty workspaces
-    if [ -z "$APP_ICONS" ]; then
-        APP_ICONS="⏺︎"
-    fi
-
-    # Highlight focused workspace (works for empty workspaces too)
-    if [ "$workspace_id" = "$FOCUSED_WORKSPACE" ]; then
-        sketchybar --set "$NAME" label="$APP_ICONS" background.drawing=on
-    else
-        sketchybar --set "$NAME" label="$APP_ICONS" background.drawing=off
-    fi
+source "$HOME/.config/sketchybar/colors.sh" 2>/dev/null || {
+  # Fallback colors if colors.sh doesn't exist
+  HIGHLIGHT_COLOR=0xff9ece6a
+  ACCENT_COLOR=0xff7aa2f7
+  INACTIVE_COLOR=0xff565f89
 }
 
-update_workspace_icon $1
+# Get the workspace this item represents (passed as argument)
+WORKSPACE=$1
+
+# Get current AeroSpace workspace
+# Use environment variable from aerospace exec-on-workspace-change if available
+if [ -n "$FOCUSED" ]; then
+  CURRENT_WORKSPACE="$FOCUSED"
+else
+  # Fallback to calling aerospace directly
+  CURRENT_WORKSPACE=$(/Applications/AeroSpace.app/Contents/MacOS/AeroSpace list-workspaces --focused 2>/dev/null)
+fi
+
+# Update colors based on whether this workspace is active
+if [ "$WORKSPACE" = "$CURRENT_WORKSPACE" ]; then
+  sketchybar --set $NAME \
+    icon.color=$HIGHLIGHT_COLOR \
+    label.color=$HIGHLIGHT_COLOR
+else
+  sketchybar --set $NAME \
+    icon.color=$INACTIVE_COLOR \
+    label.color=$INACTIVE_COLOR
+fi

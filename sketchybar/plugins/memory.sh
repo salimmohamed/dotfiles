@@ -1,24 +1,24 @@
 #!/bin/bash
 
-# CPU usage monitoring plugin
+# Memory usage monitoring plugin
 # Reads from stats_provider environment variables (event-driven, no spawning)
 
 source "$HOME/.config/sketchybar/colors.sh"
 
-# Read CPU usage from environment variable set by stats_provider
+# Read memory usage from environment variable set by stats_provider
 # No external commands = no process spawning!
-CPU_USAGE="${CPU_USAGE:-0}"
+MEM_PERCENTAGE="${RAM_USAGE:-0}"
 
 # Remove any units if present
-CPU_USAGE=$(echo "$CPU_USAGE" | sed 's/[^0-9.]//g')
+MEM_PERCENTAGE=$(echo "$MEM_PERCENTAGE" | sed 's/[^0-9.]//g')
 
 # Convert to integer for comparison
-CPU_USAGE_INT=$(printf "%.0f" "$CPU_USAGE")
+MEM_PERCENTAGE_INT=$(printf "%.0f" "$MEM_PERCENTAGE")
 
 # Color code based on usage
-if [ "$CPU_USAGE_INT" -lt 30 ]; then
+if [ "$MEM_PERCENTAGE_INT" -lt 60 ]; then
 	COLOR="$SUCCESS_COLOR"
-elif [ "$CPU_USAGE_INT" -lt 60 ]; then
+elif [ "$MEM_PERCENTAGE_INT" -lt 80 ]; then
 	COLOR="$WARNING_COLOR"
 else
 	COLOR="$ERROR_COLOR"
@@ -27,5 +27,5 @@ fi
 # Update sketchybar (icon + label colored)
 sketchybar --set "$NAME" \
 	icon.color="$COLOR" \
-	label="${CPU_USAGE_INT}%" \
+	label="${MEM_PERCENTAGE_INT}%" \
 	label.color="$COLOR"

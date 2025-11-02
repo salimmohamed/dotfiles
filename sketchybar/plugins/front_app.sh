@@ -1,11 +1,10 @@
-#!/bin/bash
+#!/bin/sh
 
-# Front app plugin - Shows icon for focused app
+# Some events send additional information specific to the event in the $INFO
+# variable. E.g. the front_app_switched event sends the name of the newly
+# focused application in the $INFO variable:
+# https://felixkratz.github.io/SketchyBar/config/events#events-and-scripting
 
-APP_NAME="$INFO"
-
-# Get the icon for this app
-APP_ICON=$("$CONFIG_DIR/plugins/icon_map_fn.sh" "$APP_NAME")
-
-# Show just the icon (label is hidden in items config)
-sketchybar --set "$NAME" icon="$APP_ICON"
+if [ "$SENDER" = "front_app_switched" ]; then
+  sketchybar --set "$NAME" label="$INFO"
+fi

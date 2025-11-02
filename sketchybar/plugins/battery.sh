@@ -1,29 +1,48 @@
-#!/bin/sh
+#!/bin/bash
 
-# Battery plugin - Using Nerd Font icons instead of SF Symbols
+# Battery monitoring plugin - Uses stats_provider for event-driven updates
+# Community standard approach with Nerd Font icons
 
-PERCENTAGE="$(pmset -g batt | grep -Eo "\d+%" | cut -d% -f1)"
-CHARGING="$(pmset -g batt | grep 'AC Power')"
+source "$HOME/.config/sketchybar/icons.sh"
+source "$HOME/.config/sketchybar/colors.sh"
 
-if [ "$PERCENTAGE" = "" ]; then
-  exit 0
+# Get battery percentage from stats_provider environment variable
+PERCENTAGE="${BATTERY_PERCENTAGE:-0}"
+
+# Remove any units if present
+PERCENTAGE=$(echo "$PERCENTAGE" | sed 's/[^0-9.]//g')
+PERCENTAGE_INT=$(printf "%.0f" "$PERCENTAGE")
+
+# Check if charging (requires pmset for now, stats_provider doesn't provide state)
+CHARGING=$(pmset -g batt | grep 'AC Power')
+
+# Select SF Symbol icon based on battery level (using icon variables from icons.sh)
+if [ -n "$CHARGING" ]; then
+  ICON="$ICON_BATTERY_CHARGING"  # Charging icon
+elif [ "$PERCENTAGE_INT" -ge 90 ]; then
+  ICON="$ICON_BATTERY_100"  # Battery full
+elif [ "$PERCENTAGE_INT" -ge 60 ]; then
+  ICON="$ICON_BATTERY_75"  # Battery 75%
+elif [ "$PERCENTAGE_INT" -ge 40 ]; then
+  ICON="$ICON_BATTERY_50"  # Battery 50%
+elif [ "$PERCENTAGE_INT" -ge 20 ]; then
+  ICON="$ICON_BATTERY_25"  # Battery 25%
+else
+  ICON="$ICON_BATTERY_0"  # Battery low
 fi
 
-# Use Nerd Font battery icons that will actually render
-case "${PERCENTAGE}" in
-  9[0-9]|100) ICON="󰁹"
-  ;;
-  [6-8][0-9]) ICON="󰂀"
-  ;;
-  [3-5][0-9]) ICON="󰁾"
-  ;;
-  [1-2][0-9]) ICON="󰁻"
-  ;;
-  *) ICON="󰁺"
-esac
-
-if [[ "$CHARGING" != "" ]]; then
-  ICON="󰂄"
+# Color code based on percentage
+if [ "$PERCENTAGE_INT" -lt 20 ] && [ -z "$CHARGING" ]; then
+  COLOR="$ERROR_COLOR"
+elif [ "$PERCENTAGE_INT" -lt 50 ]; then
+  COLOR="$WARNING_COLOR"
+else
+  COLOR="$SUCCESS_COLOR"
 fi
 
-sketchybar --set "$NAME" icon="$ICON" label="${PERCENTAGE}%"
+# Update sketchybar
+sketchybar --set "$NAME" \
+  icon="$ICON" \
+  icon.color="$COLOR" \
+  label="${PERCENTAGE_INT}%" \
+  label.color="$COLOR"
