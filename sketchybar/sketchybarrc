@@ -1,5 +1,59 @@
-#!/usr/bin/env lua
+#!/usr/bin/env bash
 
--- Load the sketchybar-package and prepare the helper binaries
-require("helpers")
-require("init")
+# DuroCodes-inspired SketchyBar Configuration
+
+CONFIG_DIR="$HOME/.config/sketchybar"
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+ITEM_DIR="$CONFIG_DIR/items"
+
+# Bar Appearance - DuroCodes exact styling
+sketchybar --bar position=top \
+                 height=40 \
+                 blur_radius=30 \
+                 color=0x80000000
+
+# Add aerospace workspace change event
+sketchybar --add event aerospace_workspace_change
+
+# Default values - DuroCodes EXACT styling (4px padding everywhere)
+default=(
+  padding_left=4
+  padding_right=4
+  icon.font="CaskaydiaCove Nerd Font Mono:Regular:20.0"
+  label.font="CaskaydiaCove Nerd Font Mono:Regular:14.0"
+  icon.padding_left=4
+  icon.padding_right=4
+  label.padding_left=4
+  label.padding_right=4
+)
+
+sketchybar --default "${default[@]}"
+
+# Left side items (in order)
+source "$ITEM_DIR/aerospace.sh"
+source "$ITEM_DIR/front_app.sh"
+
+# Right side items - DuroCodes exact (no custom padding overrides)
+sketchybar --add item clock right \
+  --set clock \
+    update_freq=10 \
+    icon= \
+    script="$PLUGIN_DIR/clock.sh" \
+  \
+  --add item volume right \
+  --set volume \
+    script="$PLUGIN_DIR/volume.sh" \
+  --subscribe volume volume_change \
+  \
+  --add item battery right \
+  --set battery \
+    update_freq=120 \
+    icon.font="CaskaydiaCove Nerd Font Mono:Regular:16.0" \
+    script="$PLUGIN_DIR/battery.sh" \
+  --subscribe battery system_woke power_source_change
+
+# Enable hotloading and update
+sketchybar --hotload on
+sketchybar --update
+
+echo "sketchybar configuration loaded..."

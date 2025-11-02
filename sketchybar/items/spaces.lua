@@ -6,8 +6,7 @@ local app_icons = require("helpers.app_icons")
 local spaces = {}
 
 for i = 1, 9, 1 do
-  local space = sbar.add("space", "space." .. i, {
-    space = i,
+  local space = sbar.add("item", "space." .. i, {
     icon = {
       font = { family = settings.font.numbers },
       string = i,
@@ -23,6 +22,7 @@ for i = 1, 9, 1 do
       font = "sketchybar-app-font:Regular:16.0",
       y_offset = -1,
     },
+    position = "left",
     padding_right = 1,
     padding_left = 1,
     background = {
@@ -46,10 +46,9 @@ for i = 1, 9, 1 do
     }
   })
 
-  -- Padding space
-  sbar.add("space", "space.padding." .. i, {
-    space = i,
-    script = "",
+  -- Padding item
+  sbar.add("item", "space.padding." .. i, {
+    position = "left",
     width = settings.group_paddings,
   })
 
@@ -66,8 +65,8 @@ for i = 1, 9, 1 do
     }
   })
 
-  space:subscribe("space_change", function(env)
-    local selected = env.SELECTED == "true"
+  space:subscribe("aerospace_workspace_change", function(env)
+    local selected = env.FOCUSED_WORKSPACE == tostring(i)
     local color = selected and colors.grey or colors.bg2
     space:set({
       icon = { highlight = selected, },
@@ -81,13 +80,12 @@ for i = 1, 9, 1 do
 
   space:subscribe("mouse.clicked", function(env)
     if env.BUTTON == "other" then
-      space_popup:set({ background = { image = "space." .. env.SID } })
+      space_popup:set({ background = { image = "space." .. i } })
       space:set({ popup = { drawing = "toggle" } })
     else
       -- Use aerospace to focus workspace (left click)
-      -- Right click disabled as aerospace doesn't support destroying workspaces the same way
       if env.BUTTON == "left" then
-        sbar.exec("aerospace workspace " .. env.SID)
+        sbar.exec("aerospace workspace " .. i)
       end
     end
   end)
@@ -124,23 +122,9 @@ local spaces_indicator = sbar.add("item", {
   }
 })
 
-space_window_observer:subscribe("space_windows_change", function(env)
-  local icon_line = ""
-  local no_app = true
-  for app, count in pairs(env.INFO.apps) do
-    no_app = false
-    local lookup = app_icons[app]
-    local icon = ((lookup == nil) and app_icons["Default"] or lookup)
-    icon_line = icon_line .. icon
-  end
-
-  if (no_app) then
-    icon_line = " —"
-  end
-  sbar.animate("tanh", 10, function()
-    spaces[env.INFO.space]:set({ label = icon_line })
-  end)
-end)
+-- Note: aerospace doesn't provide window list events like yabai
+-- For now, app icons in workspace labels are disabled
+-- To enable this, you'd need to query aerospace list-windows periodically
 
 spaces_indicator:subscribe("swap_menus_and_spaces", function(env)
   local currently_on = spaces_indicator:query().icon.value == icons.switch.on
