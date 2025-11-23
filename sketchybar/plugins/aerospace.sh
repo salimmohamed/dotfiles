@@ -1,34 +1,34 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# AeroSpace workspace indicator plugin for Sketchybar
-# Highlights active workspace and dims inactive ones
+# Exit on error
+set -e
 
-source "$HOME/.config/sketchybar/colors.sh" 2>/dev/null || {
-  # Fallback colors if colors.sh doesn't exist
-  HIGHLIGHT_COLOR=0xff9ece6a
-  ACCENT_COLOR=0xff7aa2f7
-  INACTIVE_COLOR=0xff565f89
-}
+WORKSPACE_ID=$1
+[ -z "$WORKSPACE_ID" ] && exit 1
 
-# Get the workspace this item represents (passed as argument)
-WORKSPACE=$1
+# Use timeout to prevent hanging
+FOCUSED_WORKSPACE="$(timeout 1 aerospace list-workspaces --focused | head -n1)"
 
-# Get current AeroSpace workspace
-# Use environment variable from aerospace exec-on-workspace-change if available
-if [ -n "$FOCUSED" ]; then
-  CURRENT_WORKSPACE="$FOCUSED"
+if [ "$WORKSPACE_ID" = "$FOCUSED_WORKSPACE" ]; then
+  sketchybar --set "space.$WORKSPACE_ID" icon.highlight=true label.highlight=true background.border_color=0xff000000
+  sketchybar --set "bracket.space.$WORKSPACE_ID" background.border_color=0xff888888 2>/dev/null || true
 else
-  # Fallback to calling aerospace directly
-  CURRENT_WORKSPACE=$(/Applications/AeroSpace.app/Contents/MacOS/AeroSpace list-workspaces --focused 2>/dev/null)
+  sketchybar --set "space.$WORKSPACE_ID" icon.highlight=false label.highlight=false background.border_color=0xff1e1e1e
+  sketchybar --set "bracket.space.$WORKSPACE_ID" background.border_color=0xff1e1e1e 2>/dev/null || true
 fi
 
-# Update colors based on whether this workspace is active
-if [ "$WORKSPACE" = "$CURRENT_WORKSPACE" ]; then
-  sketchybar --set $NAME \
-    icon.color=$HIGHLIGHT_COLOR \
-    label.color=$HIGHLIGHT_COLOR
-else
-  sketchybar --set $NAME \
-    icon.color=$INACTIVE_COLOR \
-    label.color=$INACTIVE_COLOR
+# Update app icons for the workspace - with timeout to prevent hanging
+APP_ICONS=""
+while IFS= read -r line; do
+  APP_NAME=$(echo "$line" | awk -F'app="' '{print $2}' | cut -d '"' -f1)
+  if [ -n "$APP_NAME" ]; then
+    APP_ICONS="$APP_ICONS $APP_NAME"
+  fi
+done < <(timeout 1 aerospace list-windows --workspace "$WORKSPACE_ID" 2>/dev/null || echo "")
+
+if [ -z "$APP_ICONS" ]; then
+  APP_ICONS=" —"
 fi
+
+sketchybar --set "space.$WORKSPACE_ID" label="$APP_ICONS"
+exit 0
