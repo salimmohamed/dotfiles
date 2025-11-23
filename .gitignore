@@ -57,3 +57,55 @@ raycast/extensions/*/*.map
 
 # Wezterm
 wezterm copy
+
+# Secrets and Credentials (SECURITY)
+.env
+.env.*
+!.env.example
+*.secret
+*.key
+*.pem
+.secrets/
+*_rsa
+*_dsa
+*_ecdsa
+*_ed25519
+credentials.json
+token
+*.token
+api_key
+*.cert
+
+# SSH and Git Credentials
+ssh/config
+ssh/known_hosts
+ssh/*_rsa*
+ssh/*_ed25519*
+.git-credentials
+.gitconfig.local
+
+# Application Secrets
+.netrc
+.npmrc
+fish/fish_variables
+configstore/
+
+# Local Override Files
+*.local
+*.private
+local.sh
+private.sh
+.zshrc.local
+.zshenv.local
+.bashrc.local
+
+# Backup Files
+*.backup
+*.bak
+.dotfiles-backup-*/
+
+# Temporary Files
+*.tmp
+*.temp
+.tmp/
+.temp/
