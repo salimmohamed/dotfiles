@@ -52,6 +52,7 @@ nvim/.DS_Store
 
 # Raycast (build artifacts)
 raycast/extensions/*/node_modules/
+raycast/extensions/*/*.js
 raycast/extensions/*/*.map
 
 # Wezterm
