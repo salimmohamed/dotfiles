@@ -13,6 +13,8 @@ sketchybar --add item apple.logo left \
 	icon="$ICON_APPLE" \
 	icon.font="SF Pro:Black:16.0" \
 	icon.color="$HIGHLIGHT_COLOR" \
+	icon.padding_left=11 \
+	icon.padding_right=1 \
 	padding_left=12 \
 	padding_right=12 \
 	click_script="sketchybar --set apple.logo popup.drawing=toggle" \

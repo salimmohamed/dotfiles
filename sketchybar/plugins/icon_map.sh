@@ -46,7 +46,7 @@ case $1 in
 
 # Editors & IDEs
 "Visual Studio Code" | "Code" | "VSCode")
-	echo ":visual_studio_code:"
+	echo "󰨞"
 	;;
 "Cursor")
 	echo ":cursor:"
