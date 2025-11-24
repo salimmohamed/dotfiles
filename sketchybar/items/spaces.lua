@@ -5,19 +5,12 @@ local app_icons = require("helpers.app_icons")
 
 local spaces = {}
 
-local space_ids = {"z", "a", "s", "d", "f", "1", "2", "3", "4", "5"}
+local space_ids = {"1", "2", "3"}
 
 local display_space_map = {
-  ["z"] = "1",
-  ["a"] = "1",
-  ["s"] = "1",
-  ["d"] = "1",
-  ["f"] = "1",
-  ["1"] = "3",
-  ["2"] = "3",
-  ["3"] = "3",
-  ["4"] = "3",
-  ["5"] = "2",
+  ["1"] = "1",
+  ["2"] = "1",
+  ["3"] = "1",
 }
 
 -- If there's only one display connected, then we display everything in 1
