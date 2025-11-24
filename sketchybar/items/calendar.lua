@@ -49,3 +49,7 @@ cal:subscribe({ "forced", "routine", "system_woke" }, function(env)
   local time = os.date("%I:%M %p"):lower():gsub(" ", "")
   cal:set({ icon = os.date("%a. %d %b."), label = time })
 end)
+
+cal:subscribe("mouse.clicked", function(env)
+  sbar.exec("open -a 'Calendar'")
+end)
