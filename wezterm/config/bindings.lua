@@ -1,6 +1,6 @@
 local wezterm = require('wezterm')
 local platform = require('utils.platform')
-local backdrops = require('utils.backdrops')
+-- local backdrops = require('utils.backdrops')
 local is_vim = require('utils.is-vim')
 local smart_close = require('utils.smart-close')
 local ensure_workspaces = require('utils.ensure-workspaces')
@@ -128,21 +128,21 @@ local keys = {
    -- Fullscreen
    { key = 'f', mods = 'SUPER|CTRL', action = act.ToggleFullScreen },
 
-   -- Background selector (keep CMD+CTRL+/ for manual selection if needed)
-   {
-      key = '/',
-      mods = mod.SUPER_REV,
-      action = act.InputSelector({
-         title = 'Select Background',
-         choices = backdrops:choices(),
-         fuzzy = true,
-         action = wezterm.action_callback(function(window, _, idx)
-            if idx then
-               backdrops:set_img(window, tonumber(idx))
-            end
-         end),
-      }),
-   },
+   -- Background selector (disabled for transparent mode)
+   -- {
+   --    key = '/',
+   --    mods = mod.SUPER_REV,
+   --    action = act.InputSelector({
+   --       title = 'Select Background',
+   --       choices = backdrops:choices(),
+   --       fuzzy = true,
+   --       action = wezterm.action_callback(function(window, _, idx)
+   --          if idx then
+   --             backdrops:set_img(window, tonumber(idx))
+   --          end
+   --       end),
+   --    }),
+   -- },
 
    -- Panes
    { key = 'd', mods = mod.SUPER, action = act.SplitHorizontal({ domain = 'CurrentPaneDomain' }) },

@@ -31,6 +31,10 @@ return {
    adjust_window_size_when_changing_font_size = false,
    window_close_confirmation = 'NeverPrompt',
 
+   -- Frosted glass transparency (macOS)
+   window_background_opacity = 0.7,
+   macos_window_background_blur = 20,
+
    -- Visual bell
    visual_bell = {
       fade_in_function = 'EaseIn',

@@ -1,7 +1,7 @@
 local Config = require('config')
 
 -- Load background images and set initial backdrop
-require('utils.backdrops'):set_images():random()
+-- require('utils.backdrops'):set_images():random()
 
 -- Setup event handlers
 require('events.gui-startup').setup()
