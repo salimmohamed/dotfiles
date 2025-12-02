@@ -172,12 +172,22 @@ shift-j = 'resize height +10'
 shift-k = 'resize height -10'
 shift-l = 'resize width +10'
 
-# [[on-window-detected]]
-# # When WezTerm terminal is detected, move it to workspace "T"
-# if.app-id = 'com.github.wez.wezterm'
-# run = "move-node-to-workspace T"
-#
-# [[on-window-detected]]
-# # When Arc browser is detected, move it to workspace "B" 
-# if.app-id = 'company.thebrowser.Browser'
-# run = "move-node-to-workspace B"
+# Exempt iPhone Mirroring from tiling - keep it floating
+[[on-window-detected]]
+if.app-id = 'com.apple.ScreenContinuity'
+run = 'layout floating'
+
+# Exempt Cisco Secure Client from tiling - keep it floating
+[[on-window-detected]]
+if.app-id = 'com.cisco.secureclient.gui'
+run = 'layout floating'
+
+# Exempt Hearthstone from tiling - keep it floating
+[[on-window-detected]]
+if.app-id = 'unity.Blizzard Entertainment.Hearthstone'
+run = 'layout floating'
+
+# Exempt HSTracker from tiling - keep it floating
+[[on-window-detected]]
+if.app-id = 'net.hearthsim.hstracker'
+run = 'layout floating'

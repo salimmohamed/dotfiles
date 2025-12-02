@@ -28,10 +28,6 @@ M.setup = function()
             name = 'dev',
             cwd = wezterm.home_dir .. '/dev',
          },
-         {
-            name = 'obsidian',
-            cwd = '/Users/sm/Learn/Notes/Main',
-         },
       }
 
       -- Create each workspace only if it doesn't exist

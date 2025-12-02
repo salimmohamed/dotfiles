@@ -198,6 +198,11 @@ local keys = {
    { key = 'PageDown', mods = 'NONE', action = act.ScrollByPage(0.75) },
    { key = 'UpArrow', mods = 'SHIFT', action = act.ScrollByLine(-1) },
    { key = 'DownArrow', mods = 'SHIFT', action = act.ScrollByLine(1) },
+
+   -- Pass through Alt+1/2/3 to Aerospace for workspace switching
+   { key = '1', mods = 'ALT', action = act.DisableDefaultAssignment },
+   { key = '2', mods = 'ALT', action = act.DisableDefaultAssignment },
+   { key = '3', mods = 'ALT', action = act.DisableDefaultAssignment },
 }
 
 local key_tables = {
