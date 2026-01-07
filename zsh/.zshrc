@@ -13,3 +13,8 @@ alias spyder-uninstall='rm -rf ~/.spyder-py3'
 # Example:
 # [[ -f "$ZDOTDIR/config/aliases.zsh" ]] && source "$ZDOTDIR/config/aliases.zsh"
 # [[ -f "$ZDOTDIR/config/functions.zsh" ]] && source "$ZDOTDIR/config/functions.zsh"
+
+export PATH=$PATH:/Users/sm/.spicetify
+
+# bun completions
+[ -s "/Users/sm/.bun/_bun" ] && source "/Users/sm/.bun/_bun"
