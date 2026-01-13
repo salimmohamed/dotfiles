@@ -7,6 +7,7 @@ options=(
 	active_color=0xffffffff  # pure bright white
 	inactive_color=0xff494d64  # keep muted dark gray
 	order=above
+	blacklist="Screen Studio"
 )
 
 borders "${options[@]}"
