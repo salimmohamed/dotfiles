@@ -109,3 +109,4 @@ private.sh
 *.temp
 .tmp/
 .temp/
+raycast/
