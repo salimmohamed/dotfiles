@@ -15,7 +15,7 @@ after-startup-command = [
 
 # Notify sketchybar about workspace changes
 exec-on-workspace-change = ['/bin/bash', '-c',
-    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE PREV_WORKSPACE=$AEROSPACE_PREV_WORKSPACE'
+    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE PREV_WORKSPACE=$AEROSPACE_PREV_WORKSPACE && ~/.config/aerospace/follow-floats.sh'
 ]
 
 # Start AeroSpace at login
@@ -119,6 +119,7 @@ alt-shift-equal = 'resize smart +50'
 alt-1 = 'workspace 1'
 alt-2 = 'workspace 2'
 alt-3 = 'workspace 3'
+alt-4 = 'workspace 4'
 
 # Workspace cycling
 alt-u = 'workspace --wrap-around prev'
@@ -128,6 +129,7 @@ alt-i = 'workspace --wrap-around next'
 alt-shift-1 = 'move-node-to-workspace 1'
 alt-shift-2 = 'move-node-to-workspace 2'
 alt-shift-3 = 'move-node-to-workspace 3'
+alt-shift-4 = 'move-node-to-workspace 4'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
 alt-tab = 'workspace-back-and-forth'
@@ -221,4 +223,9 @@ run = 'layout floating'
 # Exempt Wispr Flow from tiling - keep it floating
 [[on-window-detected]]
 if.app-id = 'com.electron.wispr-flow'
+run = 'layout floating'
+
+# Exempt Screen Studio from tiling - keep it floating
+[[on-window-detected]]
+if.app-id = 'com.timpler.screenstudio'
 run = 'layout floating'
