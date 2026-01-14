@@ -110,3 +110,5 @@ private.sh
 .tmp/
 .temp/
 raycast/
+archive/
+tmux/plugins/

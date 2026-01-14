@@ -1,0 +1,78 @@
+# Ghostty Configuration
+# Auto-launches into tmux session "main"
+
+# ─── Shell ────────────────────────────────────────────────────────────
+command = /opt/homebrew/bin/tmux new-session -A -s main
+
+# ─── Font ─────────────────────────────────────────────────────────────
+font-family = JetBrainsMono Nerd Font
+font-size = 18
+
+# ─── Theme ────────────────────────────────────────────────────────────
+# NOTE: Ghostty 1.2.0+ uses Title Case with space (not kebab-case)
+theme = Catppuccin Mocha
+
+# ─── Window ───────────────────────────────────────────────────────────
+window-decoration = false
+window-padding-x = 8
+window-padding-y = 8
+window-padding-balance = true
+macos-titlebar-style = hidden
+
+# ─── Cursor ───────────────────────────────────────────────────────────
+cursor-style = block
+cursor-style-blink = true
+
+# ─── macOS ────────────────────────────────────────────────────────────
+macos-option-as-alt = true
+
+# ─── Clipboard ────────────────────────────────────────────────────────
+clipboard-read = allow
+clipboard-write = allow
+copy-on-select = clipboard
+
+# ─── Keybindings ──────────────────────────────────────────────────────
+# Basic
+keybind = cmd+c=copy_to_clipboard
+keybind = cmd+v=paste_from_clipboard
+keybind = cmd+plus=increase_font_size:1
+keybind = cmd+minus=decrease_font_size:1
+keybind = cmd+zero=reset_font_size
+keybind = cmd+k=clear_screen
+keybind = cmd+shift+comma=reload_config
+
+# ─── Tmux Window Switching (Cmd+1-9) ──────────────────────────────────
+# First unbind Ghostty's default tab switching, then rebind to tmux
+# Sends Alt+number (Escape + number) to tmux root table bindings
+keybind = cmd+physical:one=unbind
+keybind = cmd+physical:two=unbind
+keybind = cmd+physical:three=unbind
+keybind = cmd+physical:four=unbind
+keybind = cmd+physical:five=unbind
+keybind = cmd+physical:six=unbind
+keybind = cmd+physical:seven=unbind
+keybind = cmd+physical:eight=unbind
+keybind = cmd+physical:nine=unbind
+keybind = cmd+one=text:\x1b1
+keybind = cmd+two=text:\x1b2
+keybind = cmd+three=text:\x1b3
+keybind = cmd+four=text:\x1b4
+keybind = cmd+five=text:\x1b5
+keybind = cmd+six=text:\x1b6
+keybind = cmd+seven=text:\x1b7
+keybind = cmd+eight=text:\x1b8
+keybind = cmd+nine=text:\x1b9
+
+# ─── Tmux Shortcuts (Cmd+key → Alt+key via escape sequence) ─────────
+# New window (like Cmd+T in Wezterm)
+keybind = cmd+t=text:\x1bt
+# Close pane (like Cmd+W in Wezterm)
+keybind = cmd+w=text:\x1bw
+# Split vertical (like Cmd+D in Wezterm)
+keybind = cmd+d=text:\x1bd
+# Split horizontal (like Cmd+Shift+D)
+keybind = cmd+shift+d=text:\x1bD
+# Zoom pane toggle
+keybind = cmd+shift+enter=text:\x1bz
+# Lazygit popup
+keybind = cmd+g=text:\x1bg
