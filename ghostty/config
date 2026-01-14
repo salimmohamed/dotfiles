@@ -67,16 +67,14 @@ keybind = cmd+nine=text:\x1b9
 # New window
 keybind = cmd+t=text:\x1bt
 # Close pane
-keybind = cmd+q=text:\x1bq
+keybind = cmd+w=text:\x1bq
 # Split vertical
 keybind = cmd+d=text:\x1bd
 # Split horizontal
 keybind = cmd+shift+d=text:\x1bD
 # Zoom pane toggle
 keybind = cmd+shift+enter=text:\x1bz
-# Lazygit popup
-keybind = cmd+g=text:\x1bg
-# Session/window tree picker
-keybind = cmd+w=text:\x1bw
+# Session/window tree picker (Ctrl+a w also works)
+keybind = cmd+e=text:\x1bw
 # fzf session picker
 keybind = cmd+shift+w=text:\x1bW
