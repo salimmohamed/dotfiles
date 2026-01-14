@@ -64,15 +64,19 @@ keybind = cmd+eight=text:\x1b8
 keybind = cmd+nine=text:\x1b9
 
 # ─── Tmux Shortcuts (Cmd+key → Alt+key via escape sequence) ─────────
-# New window (like Cmd+T in Wezterm)
+# New window
 keybind = cmd+t=text:\x1bt
-# Close pane (like Cmd+W in Wezterm)
-keybind = cmd+w=text:\x1bw
-# Split vertical (like Cmd+D in Wezterm)
+# Close pane
+keybind = cmd+q=text:\x1bq
+# Split vertical
 keybind = cmd+d=text:\x1bd
-# Split horizontal (like Cmd+Shift+D)
+# Split horizontal
 keybind = cmd+shift+d=text:\x1bD
 # Zoom pane toggle
 keybind = cmd+shift+enter=text:\x1bz
 # Lazygit popup
 keybind = cmd+g=text:\x1bg
+# Session/window tree picker
+keybind = cmd+w=text:\x1bw
+# fzf session picker
+keybind = cmd+shift+w=text:\x1bW
