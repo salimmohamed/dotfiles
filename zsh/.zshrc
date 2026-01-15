@@ -14,7 +14,7 @@ alias tb='tmux-boot'
 alias rh='rehoboam'
 tka() {
   tmux kill-server 2>/dev/null || true
-  rm -rf ~/.tmux/resurrect/* 2>/dev/null || true
+  rm -rf ~/.local/share/tmux/resurrect 2>/dev/null || true
   echo "Done. Tmux nuked. Run 'tb' to restart."
 }
 
