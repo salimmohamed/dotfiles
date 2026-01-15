@@ -55,7 +55,7 @@ brew "supabase/tap/supabase"       # Supabase tools
 # ========================================
 cask "cursor"                      # AI-powered code editor
 cask "visual-studio-code"          # Code editor
-cask "wezterm"                     # Terminal emulator
+cask "ghostty"                     # Terminal emulator
 
 # ========================================
 # Applications - Productivity

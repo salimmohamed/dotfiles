@@ -7,7 +7,8 @@ My personal macOS configuration files for a productive development environment.
 - **aerospace**: Tiling window manager configuration for efficient workspace management
 - **sketchybar**: Custom status bar with system monitoring and workspace indicators
 - **neovim**: Text editor configuration with plugins and custom keybindings
-- **wezterm**: Terminal emulator with GPU acceleration and custom styling
+- **ghostty**: Fast terminal emulator with tmux integration
+- **tmux**: Terminal multiplexer with session persistence and which-key menu
 - **zsh**: Shell configuration with aliases, functions, and prompt customization
 - **raycast**: Custom scripts and extensions for the Raycast launcher
 - **Brewfile**: All Homebrew packages, casks, and VS Code extensions
@@ -39,7 +40,7 @@ The bootstrap script will:
 1. **Install Homebrew** (if not already installed)
 2. **Install all packages** from the Brewfile:
    - CLI tools (neovim, git, ripgrep, etc.)
-   - Applications (WezTerm, Cursor, Aerospace, etc.)
+   - Applications (Ghostty, Cursor, Aerospace, etc.)
    - Fonts (JetBrains Mono Nerd Font, SF Mono, SF Pro)
    - VS Code extensions
 3. **Backup existing dotfiles** to `~/.dotfiles-backup-[timestamp]`
@@ -88,7 +89,8 @@ brew bundle --file=Brewfile
 │   ├── aerospace/             # Window manager
 │   ├── sketchybar/           # Status bar
 │   ├── nvim/                 # Neovim editor
-│   ├── wezterm/              # Terminal emulator
+│   ├── ghostty/              # Terminal emulator
+│   ├── tmux/                 # Terminal multiplexer
 │   ├── zsh/                  # Shell configuration
 │   └── raycast/              # Launcher extensions
 ├── home/                      # Files for $HOME
@@ -170,12 +172,13 @@ brew bundle --file=Brewfile
 - File explorer, fuzzy finder, and git integration
 - Custom keybindings and snippets
 
-### WezTerm
+### Ghostty + tmux
 
-- GPU-accelerated terminal
-- Custom color scheme and styling
-- Ligature support with Nerd Fonts
-- Tab and split management
+- Fast GPU-accelerated terminal (Ghostty)
+- Tmux for session management and persistence
+- Catppuccin Mocha theme throughout
+- Which-key menu (Ctrl+a Space) for discoverability
+- Auto-save/restore sessions with tmux-resurrect
 
 ### Zsh
 
