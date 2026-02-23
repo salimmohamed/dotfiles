@@ -15,7 +15,7 @@ alias rh='rehoboam'
 tka() {
   tmux kill-server 2>/dev/null || true
   rm -rf ~/.local/share/tmux/resurrect 2>/dev/null || true
-  echo "Done. Tmux nuked. Run 'tb' to restart."
+  killall Ghostty 2>/dev/null || true
 }
 
 # Add additional configuration files here
@@ -23,7 +23,7 @@ tka() {
 # [[ -f "$ZDOTDIR/config/aliases.zsh" ]] && source "$ZDOTDIR/config/aliases.zsh"
 # [[ -f "$ZDOTDIR/config/functions.zsh" ]] && source "$ZDOTDIR/config/functions.zsh"
 
-export PATH=$PATH:/Users/sm/.spicetify
+export PATH=$PATH:$HOME/.spicetify
 
 # bun completions
-[ -s "/Users/sm/.bun/_bun" ] && source "/Users/sm/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"

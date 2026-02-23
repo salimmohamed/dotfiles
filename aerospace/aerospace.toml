@@ -215,6 +215,11 @@ run = 'layout floating'
 if.app-id = 'ai.slipbox.macos.app'
 run = 'layout floating'
 
+# Move Visual Studio Code to workspace 3 on startup
+[[on-window-detected]]
+if.app-id = 'com.microsoft.VSCode'
+run = 'move-node-to-workspace 3'
+
 # Exempt Finder from tiling - keep it floating
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'

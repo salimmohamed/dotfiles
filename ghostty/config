@@ -19,6 +19,9 @@ window-padding-y = 8
 window-padding-balance = true
 macos-titlebar-style = hidden
 
+# ─── Bell ────────────────────────────────────────────────────────────
+bell-features = title,attention,audio
+
 # ─── Cursor ───────────────────────────────────────────────────────────
 cursor-style = block
 cursor-style-blink = true

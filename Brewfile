@@ -6,8 +6,10 @@
 # ========================================
 tap "atlassian/acli"               # Atlassian CLI tools
 tap "felixkratz/formulae"          # Sketchybar and Borders
+tap "m-mohamed/rehoboam"           # Rehoboam
 tap "mhaeuser/mhaeuser"            # Custom formulae
 tap "nikitabobko/tap"              # AeroSpace window manager
+tap "oven-sh/bun"                  # Bun JavaScript runtime
 tap "supabase/tap"                 # Supabase CLI
 
 # ========================================
@@ -34,13 +36,20 @@ brew "mysql"                       # Database
 # ========================================
 # CLI Tools - Productivity
 # ========================================
+brew "fzf"                         # Fuzzy finder
+brew "gum"                         # Terminal UI components
+brew "gh"                          # GitHub CLI
 brew "lazygit"                     # Terminal UI for git
+brew "tmux"                        # Terminal multiplexer
 brew "neofetch"                    # System info display
 brew "starship"                    # Shell prompt
 brew "zoxide"                      # Smarter cd command
+brew "zsh-autosuggestions"         # Fish-like autosuggestions for zsh
 brew "nowplaying-cli"              # Now playing info
 brew "switchaudio-osx"             # Audio device switcher
 brew "fish"                        # Alternative shell
+brew "awscli"                      # AWS CLI
+brew "tailscale"                   # VPN mesh network
 
 # ========================================
 # CLI Tools - Custom Taps
@@ -48,6 +57,8 @@ brew "fish"                        # Alternative shell
 brew "atlassian/acli/acli"         # Atlassian command line
 brew "felixkratz/formulae/borders" # Window borders
 brew "felixkratz/formulae/sketchybar"  # Status bar
+brew "m-mohamed/rehoboam/rehoboam" # Rehoboam
+brew "oven-sh/bun/bun"             # Bun JavaScript runtime
 brew "supabase/tap/supabase"       # Supabase tools
 
 # ========================================

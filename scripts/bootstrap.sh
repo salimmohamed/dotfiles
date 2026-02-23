@@ -146,6 +146,48 @@ run_command "bash '$DOTFILES_DIR/scripts/symlink.sh'"
 print_success "Symlinks created"
 
 #===============================================================================
+# Install User Scripts
+#===============================================================================
+
+print_header "Installing User Scripts"
+
+if [ -d "$DOTFILES_DIR/scripts/bin" ]; then
+    run_command "mkdir -p '$HOME/.local/bin'"
+    for script in "$DOTFILES_DIR/scripts/bin"/*; do
+        if [ -f "$script" ]; then
+            filename=$(basename "$script")
+            run_command "cp '$script' '$HOME/.local/bin/$filename'"
+            run_command "chmod +x '$HOME/.local/bin/$filename'"
+            print_success "Installed: $filename"
+        fi
+    done
+else
+    print_info "No scripts/bin directory found, skipping..."
+fi
+
+#===============================================================================
+# Install Tmux Plugin Manager (TPM)
+#===============================================================================
+
+print_header "Installing Tmux Plugin Manager"
+
+TPM_DIR="$HOME/.config/tmux/plugins/tpm"
+if [ ! -d "$TPM_DIR" ]; then
+    print_info "Installing TPM..."
+    run_command "git clone https://github.com/tmux-plugins/tpm '$TPM_DIR'"
+    print_success "TPM installed"
+else
+    print_success "TPM already installed"
+fi
+
+# Install tmux plugins
+if [ -x "$TPM_DIR/bin/install_plugins" ]; then
+    print_info "Installing tmux plugins..."
+    run_command "'$TPM_DIR/bin/install_plugins'"
+    print_success "Tmux plugins installed"
+fi
+
+#===============================================================================
 # macOS Defaults
 #===============================================================================
 
