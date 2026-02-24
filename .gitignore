@@ -110,6 +110,7 @@ private.sh
 .tmp/
 .temp/
 zsh/.zcompcache/
+zsh/.zcompdump
 raycast/
 archive/
 tmux/plugins/
