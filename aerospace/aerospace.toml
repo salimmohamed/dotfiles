@@ -15,7 +15,7 @@ after-startup-command = [
 
 # Notify sketchybar about workspace changes
 exec-on-workspace-change = ['/bin/bash', '-c',
-    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE PREV_WORKSPACE=$AEROSPACE_PREV_WORKSPACE && sketchybar --trigger space_windows_change && ~/.config/aerospace/follow-floats.sh'
+    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE PREV_WORKSPACE=$AEROSPACE_PREV_WORKSPACE && ~/.config/aerospace/follow-floats.sh'
 ]
 
 # Start AeroSpace at login
@@ -28,7 +28,7 @@ enable-normalization-opposite-orientation-for-nested-containers = true
 # See: https://nikitabobko.github.io/AeroSpace/guide#layouts
 # The 'accordion-padding' specifies the size of accordion padding
 # You can set 0 to disable the padding feature
-accordion-padding = 30
+accordion-padding = 15
 
 # Possible values: tiles|accordion
 default-root-container-layout = 'tiles'
@@ -272,6 +272,11 @@ run = 'move-node-to-workspace C'
 # Exempt Finder from tiling - keep it floating
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
+run = 'layout floating'
+
+# Exempt VencordInstaller from tiling - keep it floating
+[[on-window-detected]]
+if.app-id = 'dev.vendicated.vencordinstaller'
 run = 'layout floating'
 
 # Banish Wispr Flow to dead workspace

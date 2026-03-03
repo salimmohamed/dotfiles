@@ -70,6 +70,7 @@ return {
 	["Deezer"] = ":deezer:",
 	["Default"] = ":default:",
 	["CleanMyMac X"] = ":desktop:",
+	["Dia"] = ":dia:",
 	["DEVONthink 3"] = ":devonthink3:",
 	["DingTalk"] = ":dingtalk:",
 	["钉钉"] = ":dingtalk:",

@@ -2,6 +2,8 @@
 
 My macOS development environment. Terminal-first, unified under [Catppuccin Mocha](https://github.com/catppuccin/catppuccin).
 
+![Setup](.assets/setup.png)
+
 **AeroSpace** / **Sketchybar** / **Ghostty** / **tmux** / **VS Code** / **Zsh** / **Starship**
 
 ## What's Inside

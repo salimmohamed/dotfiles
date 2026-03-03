@@ -12,6 +12,7 @@ alias spyder-uninstall='rm -rf ~/.spyder-py3'
 # Tmux workflow
 alias tb='tmux-boot'
 alias rh='rehoboam'
+alias c='claude'
 tka() {
   tmux kill-server 2>/dev/null || true
   rm -rf ~/.local/share/tmux/resurrect 2>/dev/null || true

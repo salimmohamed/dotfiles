@@ -34,12 +34,19 @@ end
 -- Create space items
 for _, i in ipairs(space_ids) do
   local space = sbar.add("item", "space." .. i, {
-    icon = { drawing = false },
+    icon = {
+      font = { family = settings.font.text, size = 13.0 },
+      string = i,
+      padding_left = 8,
+      padding_right = 2,
+      color = colors.grey,
+      highlight_color = space_colors[i],
+    },
     label = {
       font = "sketchybar-app-font:Regular:16.0",
       string = "",
       padding_left = 6,
-      padding_right = 6,
+      padding_right = 8,
       color = colors.grey,
       highlight_color = space_colors[i],
       y_offset = -1,
@@ -64,6 +71,7 @@ for _, i in ipairs(space_ids) do
   space:subscribe("mouse.entered", function(env)
     sbar.animate("tanh", 20, function()
       space:set({
+        icon = { color = space_colors[i] },
         label = { color = space_colors[i] },
         background = { color = colors.bg1 },
       })
@@ -74,6 +82,7 @@ for _, i in ipairs(space_ids) do
     local focused = space:query().label.highlight == "on"
     sbar.animate("tanh", 20, function()
       space:set({
+        icon = { color = focused and space_colors[i] or colors.grey },
         label = { color = focused and space_colors[i] or colors.grey },
         background = {
           color = focused and colors.bg1 or colors.transparent,
@@ -89,7 +98,7 @@ local function update_space(workspace_id, focused_workspace)
   if not space then return end
 
   sbar.exec(
-    "aerospace list-windows --workspace " .. workspace_id .. " --format '%{app-name}'",
+    "timeout 1 aerospace list-windows --workspace " .. workspace_id .. " --format '%{app-name}'",
     function(app_list)
       local icon_strip = get_icon_strip(app_list)
       local is_focused = (workspace_id == focused_workspace)
@@ -100,6 +109,10 @@ local function update_space(workspace_id, focused_workspace)
 
       space:set({
         drawing = should_draw,
+        icon = {
+          highlight = is_focused,
+          color = is_focused and space_colors[workspace_id] or colors.grey,
+        },
         label = {
           string = display_label,
           highlight = is_focused,
@@ -115,7 +128,7 @@ end
 
 -- Update all workspaces
 local function update_all_spaces()
-  sbar.exec("aerospace list-workspaces --focused", function(focused)
+  sbar.exec("timeout 1 aerospace list-workspaces --focused", function(focused)
     focused = focused:match("^%s*(.-)%s*$")
     for _, id in ipairs(space_ids) do
       update_space(id, focused)
@@ -134,10 +147,6 @@ space_observer:subscribe("aerospace_workspace_change", function(env)
   for _, id in ipairs(space_ids) do
     update_space(id, focused)
   end
-end)
-
-space_observer:subscribe("space_windows_change", function(env)
-  update_all_spaces()
 end)
 
 space_observer:subscribe("front_app_switched", function(env)
