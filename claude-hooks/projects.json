@@ -1,8 +1,0 @@
-[
-  {"name": "argus", "path": "~/dev/projects/Argus", "priority": 1},
-  {"name": "catan", "path": "~/dev/projects/CatanOptimizer", "priority": 2},
-  {"name": "config", "path": "~/.config", "priority": 3},
-  {"name": "capstone", "path": "~/learn/Capstone", "priority": 4},
-  {"name": "school", "path": "~/learn", "priority": 5},
-  {"name": "career", "path": "~/Work", "priority": 6}
-]

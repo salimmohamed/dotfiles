@@ -1,96 +1,60 @@
-# macOS System Files
+# =============================================================================
+# Dotfiles .gitignore
+# =============================================================================
+
+# ─── macOS ──────────────────────────────────────────────────────────────────
 .DS_Store
-.DS_Store?
 ._*
 .Spotlight-V100
 .Trashes
 .AppleDouble
 .LSOverride
-Icon
 .DocumentRevisions-V100
 .fseventsd
-.VolumeIcon.icns
 .com.apple.timemachine.donotpresent
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
 
-# Shell History & Sessions
-zsh/.zsh_history
-zsh/.zsh_sessions/
-fish/fish_variables
-fish/*.fish.save
-
-# Editor Swap & Backup Files
+# ─── Editors ────────────────────────────────────────────────────────────────
 *.swp
 *.swo
 *~
-*.sublime-*
 .idea/
 .vscode/
 
-# Node.js
+# ─── Node / Build ──────────────────────────────────────────────────────────
 node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-# Build artifacts
 *.map
 *.o
 *.obj
 *.class
 
-# Cache directories
-.cache/
-*.cache
-
-# Neovim (additional temp files - most are in stdpath("data"))
-nvim/.DS_Store
-
-# Raycast (build artifacts)
-raycast/extensions/*/node_modules/
-raycast/extensions/*/*.js
-raycast/extensions/*/*.map
-
-# Wezterm
-wezterm copy
-
-# Secrets and Credentials (SECURITY)
+# ─── Secrets & Credentials ─────────────────────────────────────────────────
 .env
 .env.*
 !.env.example
 *.secret
 *.key
 *.pem
-.secrets/
+*.cert
+*.token
 *_rsa
 *_dsa
 *_ecdsa
 *_ed25519
-credentials.json
-token
-*.token
 api_key
-*.cert
-
-# SSH and Git Credentials
-ssh/config
-ssh/known_hosts
-ssh/*_rsa*
-ssh/*_ed25519*
+credentials.json
+.secrets/
 .git-credentials
 .gitconfig.local
-
-# Application Secrets
 .netrc
 .npmrc
-fish/fish_variables
-configstore/
 
-# Local Override Files
+# ─── SSH ────────────────────────────────────────────────────────────────────
+ssh/
+
+# ─── Local Overrides ───────────────────────────────────────────────────────
 *.local
 *.private
 local.sh
@@ -99,18 +63,56 @@ private.sh
 .zshenv.local
 .bashrc.local
 
-# Backup Files
+# ─── Shell State ────────────────────────────────────────────────────────────
+zsh/.zsh_history
+zsh/.zsh_sessions/
+zsh/.zcompcache/
+zsh/.zcompdump*
+
+# ─── Cache ──────────────────────────────────────────────────────────────────
+.cache/
+*.cache
+
+# ─── Backups & Temp ────────────────────────────────────────────────────────
 *.backup
 *.bak
-.dotfiles-backup-*/
-
-# Temporary Files
 *.tmp
 *.temp
 .tmp/
 .temp/
-zsh/.zcompcache/
-zsh/.zcompdump
+.dotfiles-backup-*/
+sketchybar.backup/
+
+# ─── Application Data (not config) ─────────────────────────────────────────
+Battle.net/
+avante.nvim/
+qBittorrent/
+configstore/
+uv/
+
+# ─── Abandoned / Unused Configs ────────────────────────────────────────────
+lvim/
+fish/
+neofetch/
+mpv/
+
+# ─── Tool-Specific ─────────────────────────────────────────────────────────
+# Raycast extensions and build artifacts
 raycast/
+
+# Old archived configs
 archive/
+
+# Tmux plugins (installed by TPM at runtime)
 tmux/plugins/
+
+# ─── Private / Auth Configs ────────────────────────────────────────────────
+github-copilot/
+gh/hosts.yml
+acli/
+.claude/
+claude-hooks/projects.json
+
+# ─── Untracked Projects ────────────────────────────────────────────────────
+ccstatusline/
+mole/
