@@ -25,5 +25,8 @@ tka() {
 
 export PATH=$PATH:$HOME/.spicetify
 
+# Obsidian CLI
+export PATH="$PATH:/Applications/Obsidian.app/Contents/MacOS"
+
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
