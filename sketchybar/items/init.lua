@@ -1,7 +1,8 @@
+-- Left side
 require("items.menus")
+require("items.apple")
 require("items.spaces")
 require("items.front_app")
-require("items.mail")
-require("items.calendar")
+
+-- Right side (widgets)
 require("items.widgets")
-require("items.media")

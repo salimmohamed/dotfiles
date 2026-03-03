@@ -120,6 +120,7 @@ alt-1 = 'workspace 1'
 alt-2 = 'workspace 2'
 alt-3 = 'workspace 3'
 alt-4 = 'workspace 4'
+alt-c = 'workspace C'
 
 # Workspace cycling
 alt-u = 'workspace --wrap-around prev'
@@ -130,6 +131,7 @@ alt-shift-1 = 'move-node-to-workspace 1'
 alt-shift-2 = 'move-node-to-workspace 2'
 alt-shift-3 = 'move-node-to-workspace 3'
 alt-shift-4 = 'move-node-to-workspace 4'
+alt-shift-c = 'move-node-to-workspace C'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
 alt-tab = 'workspace-back-and-forth'
@@ -215,10 +217,54 @@ run = 'layout floating'
 if.app-id = 'ai.slipbox.macos.app'
 run = 'layout floating'
 
-# Move Visual Studio Code to workspace 3 on startup
+# Workspace 1: Terminal
+[[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
+run = 'move-node-to-workspace 1'
+
+# Workspace 2: Browsers
+[[on-window-detected]]
+if.app-id = 'com.google.Chrome'
+run = 'move-node-to-workspace 2'
+
+[[on-window-detected]]
+if.app-id = 'company.thebrowser.Browser'
+run = 'move-node-to-workspace 2'
+
+# Workspace 3: Notes/Media
+[[on-window-detected]]
+if.app-id = 'md.obsidian'
+run = 'move-node-to-workspace 3'
+
+[[on-window-detected]]
+if.app-id = 'com.spotify.client'
+run = 'move-node-to-workspace 3'
+
+# Workspace 4: Messaging
+[[on-window-detected]]
+if.app-id = 'com.hnc.Discord'
+run = 'move-node-to-workspace 4'
+
+[[on-window-detected]]
+if.app-id = 'com.tinyspeck.slackmacgap'
+run = 'move-node-to-workspace 4'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.MobileSMS'
+run = 'move-node-to-workspace 4'
+
+# Workspace C: Coding
 [[on-window-detected]]
 if.app-id = 'com.microsoft.VSCode'
-run = 'move-node-to-workspace 3'
+run = 'move-node-to-workspace C'
+
+[[on-window-detected]]
+if.app-id = 'com.todesktop.230313mzl4w4u92'
+run = 'move-node-to-workspace C'
+
+[[on-window-detected]]
+if.app-id = 'com.google.antigravity'
+run = 'move-node-to-workspace C'
 
 # Exempt Finder from tiling - keep it floating
 [[on-window-detected]]

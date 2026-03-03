@@ -2,10 +2,10 @@
 
 options=(
 	style=round
-	width=6.0
+	width=4.0
 	hidpi=on
-	active_color=0xffffffff  # pure bright white
-	inactive_color=0xff494d64  # keep muted dark gray
+	active_color=0xff45475a   # Catppuccin Mocha Surface1 (matches SketchyBar border)
+	inactive_color=0x00000000  # Transparent (hides aerospace hidden window artifacts)
 	order=above
 	blacklist="Screen Studio"
 )
