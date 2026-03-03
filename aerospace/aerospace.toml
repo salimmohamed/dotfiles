@@ -48,7 +48,7 @@ key-mapping.preset = 'qwerty'
 # See https://nikitabobko.github.io/AeroSpace/commands#move-mouse
 # Fallback value (if you omit the key): on-focused-monitor-changed = []
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
-on-focus-changed = "move-mouse window-lazy-center"
+on-focus-changed = ['exec-and-forget ~/.config/aerospace/center-floating.sh', 'move-mouse window-lazy-center']
 # Gaps between windows (inner-*) and between monitor edges (outer-*).
 # Possible values:
 # - Constant:     gaps.outer.top = 8
@@ -120,6 +120,9 @@ alt-1 = 'workspace 1'
 alt-2 = 'workspace 2'
 alt-3 = 'workspace 3'
 alt-4 = 'workspace 4'
+alt-c = 'workspace C'
+alt-s = 'workspace S'
+alt-z = 'workspace Z'
 
 # Workspace cycling
 alt-u = 'workspace --wrap-around prev'
@@ -130,6 +133,7 @@ alt-shift-1 = 'move-node-to-workspace 1'
 alt-shift-2 = 'move-node-to-workspace 2'
 alt-shift-3 = 'move-node-to-workspace 3'
 alt-shift-4 = 'move-node-to-workspace 4'
+alt-shift-c = 'move-node-to-workspace C'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
 alt-tab = 'workspace-back-and-forth'
@@ -215,22 +219,81 @@ run = 'layout floating'
 if.app-id = 'ai.slipbox.macos.app'
 run = 'layout floating'
 
-# Move Visual Studio Code to workspace 3 on startup
+# Workspace 1: Terminal
+[[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
+run = 'move-node-to-workspace 1'
+
+# Workspace 2: Browsers
+[[on-window-detected]]
+if.app-id = 'com.google.Chrome'
+run = 'move-node-to-workspace 2'
+
+[[on-window-detected]]
+if.app-id = 'company.thebrowser.Browser'
+run = 'move-node-to-workspace 2'
+
+# Workspace 3: Notes/Media
+[[on-window-detected]]
+if.app-id = 'md.obsidian'
+run = 'move-node-to-workspace 3'
+
+# Workspace S: Spotify
+[[on-window-detected]]
+if.app-id = 'com.spotify.client'
+run = 'move-node-to-workspace S'
+
+# Workspace 4: Messaging
+[[on-window-detected]]
+if.app-id = 'com.hnc.Discord'
+run = 'move-node-to-workspace 4'
+
+[[on-window-detected]]
+if.app-id = 'com.tinyspeck.slackmacgap'
+run = 'move-node-to-workspace 4'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.MobileSMS'
+run = 'move-node-to-workspace 4'
+
+# Workspace C: Coding
 [[on-window-detected]]
 if.app-id = 'com.microsoft.VSCode'
-run = 'move-node-to-workspace 3'
+run = 'move-node-to-workspace C'
+
+[[on-window-detected]]
+if.app-id = 'com.todesktop.230313mzl4w4u92'
+run = 'move-node-to-workspace C'
+
+[[on-window-detected]]
+if.app-id = 'com.google.antigravity'
+run = 'move-node-to-workspace C'
 
 # Exempt Finder from tiling - keep it floating
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
 run = 'layout floating'
 
-# Exempt Wispr Flow from tiling - keep it floating
+# Banish Wispr Flow to dead workspace
 [[on-window-detected]]
 if.app-id = 'com.electron.wispr-flow'
+run = ['layout floating', 'move-node-to-workspace Z']
+
+# Exempt System Settings from tiling - keep it floating
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'
 run = 'layout floating'
 
 # Exempt Screen Studio from tiling - keep it floating
 [[on-window-detected]]
 if.app-id = 'com.timpler.screenstudio'
 run = 'layout floating'
+
+# Banish windowless menu bar apps to dead workspace
+[[on-window-detected]]
+if.app-id = 'com.apphousekitchen.aldente-pro'
+run = ['layout floating', 'move-node-to-workspace Z']
+
+[[on-window-detected]]
+if.app-id = 'com.dwarvesv.minimalbar'
+run = ['layout floating', 'move-node-to-workspace Z']
