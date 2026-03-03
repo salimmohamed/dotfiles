@@ -1,8 +1,8 @@
 # Dotfiles
 
-My macOS development environment. Terminal-first, vim-centric, and unified under [Catppuccin Mocha](https://github.com/catppuccin/catppuccin).
+My macOS development environment. Terminal-first, unified under [Catppuccin Mocha](https://github.com/catppuccin/catppuccin).
 
-**AeroSpace** / **Sketchybar** / **Ghostty** / **tmux** / **Neovim** / **Zsh** / **Starship**
+**AeroSpace** / **Sketchybar** / **Ghostty** / **tmux** / **VS Code** / **Zsh** / **Starship**
 
 ## What's Inside
 
@@ -12,7 +12,8 @@ My macOS development environment. Terminal-first, vim-centric, and unified under
 | [Sketchybar](https://github.com/FelixKratz/SketchyBar) | Custom status bar | `sketchybar/` |
 | [Ghostty](https://ghostty.org) | Terminal emulator | `ghostty/` |
 | [tmux](https://github.com/tmux/tmux) | Terminal multiplexer | `tmux/` |
-| [Neovim](https://neovim.io) | Text editor (LazyVim) | `nvim/` |
+| [VS Code](https://code.visualstudio.com) / [Cursor](https://cursor.com) | Primary editor | via Brewfile |
+| [Neovim](https://neovim.io) | Quick terminal editing (LazyVim) | `nvim/` |
 | [Zsh](https://www.zsh.org) | Shell | `zsh/` |
 | [Starship](https://starship.rs) | Prompt | `starship.toml` |
 | [JankyBorders](https://github.com/FelixKratz/JankyBorders) | Window borders | `borders/` |
@@ -24,16 +25,17 @@ My macOS development environment. Terminal-first, vim-centric, and unified under
 The tools form a tightly integrated stack:
 
 ```
+VS Code / Cursor (primary editor)
 Ghostty (terminal) → auto-launches tmux → runs Zsh + Starship prompt
      ↓                      ↓
   Cmd+key          Ctrl+a prefix (which-key menu)
   passthrough              ↓
-  to tmux           Neovim / Lazygit / fzf popups
+  to tmux           Neovim (quick edits) / Lazygit / fzf popups
 ```
 
 **Design principles:**
 - Catppuccin Mocha theme across every tool
-- Vim-style `hjkl` navigation everywhere (AeroSpace, tmux, Neovim)
+- Vim-style `hjkl` navigation everywhere (AeroSpace, tmux, VS Code Vim extension)
 - Modal keybindings with leader/prefix keys
 - Minimal UI chrome, maximum content space
 - Frosted glass transparency on the terminal
@@ -117,7 +119,7 @@ Terminal multiplexer with session persistence and a which-key menu for discovera
 
 ## Neovim
 
-LazyVim-based configuration focused on distraction-free editing.
+My primary editors are VS Code and Cursor, but Neovim is kept configured for quick terminal editing when I need to jump into a file without leaving the terminal. LazyVim-based, focused on distraction-free editing.
 
 - **Framework:** [LazyVim](https://www.lazyvim.org/) with selective customization
 - **Diagnostics:** All sign column indicators hidden (clean gutter)
