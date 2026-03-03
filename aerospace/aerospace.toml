@@ -15,7 +15,7 @@ after-startup-command = [
 
 # Notify sketchybar about workspace changes
 exec-on-workspace-change = ['/bin/bash', '-c',
-    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE PREV_WORKSPACE=$AEROSPACE_PREV_WORKSPACE && ~/.config/aerospace/follow-floats.sh'
+    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE PREV_WORKSPACE=$AEROSPACE_PREV_WORKSPACE && sketchybar --trigger space_windows_change && ~/.config/aerospace/follow-floats.sh'
 ]
 
 # Start AeroSpace at login
