@@ -36,7 +36,7 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 ### 3. Clone the Repository
 
 ```bash
-git clone https://github.com/salimmohamed/.config.git ~/dotfiles
+git clone https://github.com/salimmohamed/dotfiles.git ~/dotfiles
 ```
 
 ### 4. Run the Bootstrap Script
