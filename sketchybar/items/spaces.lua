@@ -5,7 +5,7 @@ local app_icons = require("helpers.app_icons")
 
 local spaces = {}
 
-local space_ids = { "1", "2", "3", "4", "C" }
+local space_ids = { "1", "2", "3", "4", "C", "S" }
 
 -- Uncomment to enable workspaces 5-8
 -- local space_ids = { "1", "2", "3", "4", "C", "5", "6", "7", "8" }
@@ -16,7 +16,7 @@ local space_icons = {
   ["3"] = "􀈎",  -- notes
   ["4"] = "􀌲",  -- message
   ["C"] = "􀤙",  -- code
-  -- ["5"] = "􀑪",  -- music
+  ["S"] = "􀑪",  -- music/spotify
   -- ["6"] = "􀈕",  -- folder
   -- ["7"] = "􀙗",  -- design
   -- ["8"] = "􀍟",  -- gear
@@ -28,7 +28,7 @@ local space_colors = {
   ["3"] = colors.magenta,
   ["4"] = colors.yellow,
   ["C"] = colors.cyan,
-  -- ["5"] = colors.orange,
+  ["S"] = colors.green,
   -- ["6"] = colors.cyan,
   -- ["7"] = colors.red,
   -- ["8"] = colors.grey,

@@ -14,8 +14,9 @@ floating_apps=(
   "org.qbittorrent.qBittorrent"
   "ai.slipbox.macos.app"
   "com.apple.finder"
-  "com.electron.wispr-flow"
+
   "com.timpler.screenstudio"
+  "com.apple.systempreferences"
 )
 
 for app_id in "${floating_apps[@]}"; do

@@ -2,7 +2,7 @@
 
 options=(
 	style=round
-	width=4.0
+	width=2.0
 	hidpi=on
 	active_color=0xff45475a   # Catppuccin Mocha Surface1 (matches SketchyBar border)
 	inactive_color=0x00000000  # Transparent (hides aerospace hidden window artifacts)
