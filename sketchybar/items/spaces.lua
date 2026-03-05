@@ -98,7 +98,7 @@ local function update_space(workspace_id, focused_workspace)
   if not space then return end
 
   sbar.exec(
-    "timeout 1 aerospace list-windows --workspace " .. workspace_id .. " --format '%{app-name}'",
+    "aerospace list-windows --workspace " .. workspace_id .. " --format '%{app-name}'",
     function(app_list)
       local icon_strip = get_icon_strip(app_list)
       local is_focused = (workspace_id == focused_workspace)
@@ -128,7 +128,7 @@ end
 
 -- Update all workspaces
 local function update_all_spaces()
-  sbar.exec("timeout 1 aerospace list-workspaces --focused", function(focused)
+  sbar.exec("aerospace list-workspaces --focused", function(focused)
     focused = focused:match("^%s*(.-)%s*$")
     for _, id in ipairs(space_ids) do
       update_space(id, focused)

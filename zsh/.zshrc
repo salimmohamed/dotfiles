@@ -15,6 +15,7 @@ alias rh='rehoboam'
 alias c='claude'
 tka() {
   tmux kill-server 2>/dev/null || true
+  while tmux has-session 2>/dev/null; do sleep 0.1; done
   rm -rf ~/.local/share/tmux/resurrect 2>/dev/null || true
   killall Ghostty 2>/dev/null || true
 }

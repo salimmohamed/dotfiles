@@ -195,6 +195,16 @@ Lua-based status bar with real-time system monitoring.
 - **Theme:** Catppuccin Mocha via the marketplace
 - CSS injection enabled, custom apps (marketplace), experimental features
 
+## Alcove (Dynamic Island)
+
+[Alcove](https://github.com/TheBoredTeam/Alcove) adds a Dynamic Island-style notch area to macOS. It lives behind the MacBook notch and activates on hover or system events, showing:
+
+- **Media controls** — album art, play/pause, skip (appears when music is playing)
+- **Volume/brightness** — visual sliders that pop up on adjustment
+- **Power status** — battery and charging info on cable connect/disconnect
+
+Alcove runs as a menu bar app and requires no configuration — it works out of the box with the system notch.
+
 ## macOS Defaults
 
 The `macos/defaults.sh` script configures system preferences:
