@@ -5,6 +5,6 @@ require("items.widgets.wifi")
 require("items.widgets.volume")
 require("items.widgets.music")
 require("items.widgets.codexbar")
-require("items.widgets.ram")
+-- require("items.widgets.ram") -- disabled temporarily, looks clean without it
 require("items.widgets.cpu")
 require("items.widgets.zen")
