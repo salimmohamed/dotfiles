@@ -4,7 +4,7 @@ My macOS development environment. Terminal-first, unified under [Catppuccin Moch
 
 ![Setup](.assets/setup.png)
 
-**AeroSpace** / **Sketchybar** / **Ghostty** / **tmux** / **VS Code** / **Zsh** / **Starship**
+**AeroSpace** / **Sketchybar** / **Ghostty** / **tmux** / **Zed** / **Zsh** / **Starship** / **Lue** / **Spicetify**
 
 ## What's Inside
 
@@ -14,12 +14,13 @@ My macOS development environment. Terminal-first, unified under [Catppuccin Moch
 | [Sketchybar](https://github.com/FelixKratz/SketchyBar) | Custom status bar | `sketchybar/` |
 | [Ghostty](https://ghostty.org) | Terminal emulator | `ghostty/` |
 | [tmux](https://github.com/tmux/tmux) | Terminal multiplexer | `tmux/` |
-| [VS Code](https://code.visualstudio.com) / [Cursor](https://cursor.com) | Primary editor | via Brewfile |
+| [Zed](https://zed.dev) | Primary editor | `zed/` |
 | [Neovim](https://neovim.io) | Quick terminal editing (LazyVim) | `nvim/` |
 | [Zsh](https://www.zsh.org) | Shell | `zsh/` |
 | [Starship](https://starship.rs) | Prompt | `starship.toml` |
+| [Lue](https://github.com/superstarryeyes/lue) | Terminal eBook reader with TTS | `lue/` |
 | [JankyBorders](https://github.com/FelixKratz/JankyBorders) | Window borders | `borders/` |
-| [Spicetify](https://spicetify.app) | Spotify theming | `spicetify/` |
+| [Spicetify](https://spicetify.app) + [SpotX](https://github.com/SpotX-Official/SpotX-Bash) | Spotify theming + ad blocking | `spicetify/` |
 | [Brewfile](https://github.com/Homebrew/homebrew-bundle) | Package management | `Brewfile` |
 
 ## Architecture
@@ -27,17 +28,17 @@ My macOS development environment. Terminal-first, unified under [Catppuccin Moch
 The tools form a tightly integrated stack:
 
 ```
-VS Code / Cursor (primary editor)
+Zed (primary editor) / Neovim (quick terminal edits)
 Ghostty (terminal) → auto-launches tmux → runs Zsh + Starship prompt
      ↓                      ↓
   Cmd+key          Ctrl+a prefix (which-key menu)
   passthrough              ↓
-  to tmux           Neovim (quick edits) / Lazygit / fzf popups
+  to tmux           Lazygit / fzf popups / Lue (eBook reader)
 ```
 
 **Design principles:**
 - Catppuccin Mocha theme across every tool
-- Vim-style `hjkl` navigation everywhere (AeroSpace, tmux, VS Code Vim extension)
+- Vim-style `hjkl` navigation everywhere (AeroSpace, tmux, Lue, Zed)
 - Modal keybindings with leader/prefix keys
 - Minimal UI chrome, maximum content space
 - Frosted glass transparency on the terminal
@@ -56,8 +57,9 @@ Tiling window manager with vim-style navigation using `Alt` as the modifier key.
 - **Service mode:** `Alt+Shift+;` for admin operations (reset layout, balance sizes, close others)
 - **Gaps:** 10px inner, 10-15px outer
 - **Floating rules:** Finder, System Settings, iPhone Mirroring, games, and other non-tileable apps
-- **Auto-routing:** VSCode/Cursor automatically opens on workspace 3
+- **Auto-routing:** Apps auto-move to assigned workspaces (Ghostty→1, Browsers→2, Obsidian→3, Messaging→4, IDEs→C, Spotify→S)
 - **Integration:** Sends workspace change events to Sketchybar for live workspace indicators
+- **Follow-floats:** Floating apps (Finder, System Settings, etc.) follow you across workspaces
 
 ## Ghostty (Terminal)
 
@@ -160,10 +162,12 @@ Zsh shell with XDG-compliant config directory and Starship prompt.
 - `config/zoxide.zsh` — Smart directory jumping (frecency-based `cd` replacement)
 - `config/completion.zsh` — Zsh autosuggestions (Fish-like, history + completion strategy)
 
-**Custom aliases:**
+**Custom aliases & functions:**
 - `tb` — Launch tmux-boot (interactive project session picker)
 - `rh` — Switch to rehoboam control session
 - `tka` — Kill all tmux sessions, clear resurrect state, close Ghostty
+- `book` — Fuzzy-search Calibre library and open in Lue (sorted by recently read, hides books tagged "hidden")
+- `c` — Shortcut for `claude`
 
 **Starship prompt:**
 - Two-line format with green bracket styling
@@ -190,10 +194,27 @@ Lua-based status bar with real-time system monitoring.
 - **Style:** Rounded (radius 6.0), rendered above windows
 - **Excluded:** Screen Studio
 
-## Spicetify (Spotify)
+## Lue (eBook Reader)
+
+Terminal-based eBook reader with offline TTS, integrated with Calibre library.
+
+- **TTS:** Kokoro (offline, 82M params) with `af_heart` voice at 1.4x default speed
+- **Theme:** Catppuccin Mocha — custom highlighting with Rosewater (active sentence), Pink (current word)
+- **Keybindings:** Vim-style (`lue/keys.json`) — `h/j/k/l` for sentence/paragraph navigation, `H/G/g` for jumps
+- **Playback:** Space/p for play/pause, `,`/`.` to adjust speed, `s`/`w` to toggle highlights
+- **Session timer:** Built-in reading timer in the bottom bar
+- **Calibre integration:** `book` shell command (in `.zshrc`) that queries Calibre's SQLite database, filters hidden-tagged books, sorts by recently read, and opens a fuzzy picker via fzf
+
+## Zed (Editor)
+
+Primary code editor, configured at `zed/settings.json`.
+
+## Spicetify + SpotX (Spotify)
 
 - **Theme:** Catppuccin Mocha via the marketplace
+- **SpotX:** Ad blocking with auto-update blocker
 - CSS injection enabled, custom apps (marketplace), experimental features
+- Managed via `/spotify` skill: SpotX first (patches executable), then Spicetify (layers UI)
 
 ## Alcove (Dynamic Island)
 
@@ -228,7 +249,7 @@ The `macos/defaults.sh` script configures system preferences:
 |---------|--------|
 | `Alt+h/j/k/l` | Focus window left/down/up/right |
 | `Alt+Shift+h/j/k/l` | Move window left/down/up/right |
-| `Alt+1-4` | Switch to workspace |
+| `Alt+1-4,C,S` | Switch to workspace |
 | `Alt+f` | Toggle floating |
 | `Alt+/` | Tiles layout |
 | `Alt+,` | Accordion layout |
@@ -330,7 +351,7 @@ See [SETUP.md](SETUP.md) for step-by-step instructions that Claude Code can foll
 
 **Languages:** Python 3.14, Node, Rust, Lua, Bun
 
-**Applications:** Ghostty, Cursor, VSCode, AeroSpace, Alt-Tab, Raycast, Shottr, HiddenBar, AppCleaner, Screen Studio, Zoom, Parsec, Microsoft Office
+**Applications:** Ghostty, Zed, Cursor, VSCode, AeroSpace, Alt-Tab, Raycast, Shottr, HiddenBar, AppCleaner, Screen Studio, Zoom, Parsec, Microsoft Office
 
 **Fonts:** JetBrainsMono Nerd Font, SF Mono, SF Pro
 
@@ -358,6 +379,8 @@ See [SETUP.md](SETUP.md) for step-by-step instructions that Claude Code can foll
 │   ├── .zshrc                     # → ~/.zshrc
 │   ├── .zshenv                    # → ~/.zshenv (sets ZDOTDIR)
 │   └── .bashrc                    # → ~/.bashrc
+├── lue/                           # Terminal eBook reader
+│   └── keys.json                  # Vim-style keyboard shortcuts
 ├── macos/
 │   └── defaults.sh                # macOS system preferences script
 ├── nvim/                          # Neovim (LazyVim)
@@ -383,11 +406,14 @@ See [SETUP.md](SETUP.md) for step-by-step instructions that Claude Code can foll
 ├── tmux/
 │   ├── tmux.conf                  # Main config + plugins
 │   └── which-key-config.yaml      # Which-key menu structure
+├── zed/                           # Zed editor
+│   └── settings.json              # Editor preferences
 ├── zsh/
-│   ├── .zshrc                     # Interactive shell config
+│   ├── .zshrc                     # Interactive shell config (includes book command)
 │   ├── .zshenv                    # Environment variables
 │   ├── .zprofile                  # Login shell (Homebrew init)
 │   └── config/                    # Modules (prompt, zoxide, completion)
+├── catppuccin-mocha.md            # Full color palette reference
 ├── starship.toml                  # Prompt configuration
 ├── Brewfile                       # Homebrew packages
 ├── SETUP.md                       # Claude Code automated setup guide
