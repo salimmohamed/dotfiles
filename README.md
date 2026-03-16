@@ -200,6 +200,8 @@ Lua-based status bar with real-time system monitoring.
 
 ## Lue (eBook Reader)
 
+![Lue](.assets/lue.png)
+
 Terminal-based eBook reader with offline TTS, integrated with Calibre library.
 
 - **TTS:** Kokoro (offline, 82M params) with `af_heart` voice at 1.4x default speed
@@ -214,6 +216,8 @@ Terminal-based eBook reader with offline TTS, integrated with Calibre library.
 Primary code editor, configured at `zed/settings.json`.
 
 ## Spicetify + SpotX (Spotify)
+
+![Spotify](.assets/spotify.png)
 
 - **Theme:** Catppuccin Mocha via the marketplace
 - **SpotX:** Ad blocking with auto-update blocker
