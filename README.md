@@ -8,7 +8,7 @@ My macOS development environment. Terminal-first, keyboard-driven, and themed en
 
 ![Setup](.assets/setup.png)
 
-> Tiling windows with AeroSpace, a Lua-powered status bar, Ghostty + tmux for terminal life, Zed for code, and offline TTS audiobook reading — all wired together with vim keybindings.
+> Tiling windows with AeroSpace, a Lua-powered status bar, Ghostty + cmux + tmux for terminal life, Zed for code, and offline TTS audiobook reading — all wired together with vim keybindings.
 
 ## What's Inside
 
@@ -17,6 +17,7 @@ My macOS development environment. Terminal-first, keyboard-driven, and themed en
 | [AeroSpace](https://github.com/nikitabobko/AeroSpace) | Tiling window manager | `aerospace/` |
 | [Sketchybar](https://github.com/FelixKratz/SketchyBar) | Custom status bar | `sketchybar/` |
 | [Ghostty](https://ghostty.org) | Terminal emulator | `ghostty/` |
+| [cmux](https://github.com/anthropics/claude-code) | Claude Code terminal (daily driver) | — |
 | [tmux](https://github.com/tmux/tmux) | Terminal multiplexer | `tmux/` |
 | [Zed](https://zed.dev) | Primary editor | `zed/` |
 | [Neovim](https://neovim.io) | Quick terminal editing (LazyVim) | `nvim/` |
@@ -33,6 +34,7 @@ The tools form a tightly integrated stack:
 
 ```
 Zed (primary editor) / Neovim (quick terminal edits)
+cmux (Claude Code terminal) ─── daily driver for AI-assisted dev
 Ghostty (terminal) → auto-launches tmux → runs Zsh + Starship prompt
      ↓                      ↓
   Cmd+key          Ctrl+a prefix (which-key menu)
