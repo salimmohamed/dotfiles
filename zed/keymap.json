@@ -1,0 +1,8 @@
+[
+  {
+    "context": "Editor && extension == py",
+    "bindings": {
+      "cmd-'": ["task::Spawn", { "task_name": "Run Python File" }]
+    }
+  }
+]

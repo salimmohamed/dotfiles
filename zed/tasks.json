@@ -1,0 +1,8 @@
+[
+  {
+    "label": "Run Python File",
+    "command": "python3 \"$ZED_FILE\"",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false
+  }
+]
