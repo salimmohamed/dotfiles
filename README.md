@@ -202,7 +202,7 @@ Lua-based status bar with real-time system monitoring.
 
 ![Lue](.assets/lue.png)
 
-Terminal-based eBook reader with offline TTS, integrated with Calibre library.
+Terminal-based eBook reader with offline TTS, integrated with Calibre library. Planning to fork and rewrite in Rust for better performance.
 
 - **TTS:** Kokoro (offline, 82M params) with `af_heart` voice at 1.4x default speed
 - **Theme:** Catppuccin Mocha — custom highlighting with Rosewater (active sentence), Pink (current word)
