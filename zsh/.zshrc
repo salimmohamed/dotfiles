@@ -1,6 +1,11 @@
 # Interactive shell configuration
 # This file is sourced for interactive shells
 
+# cmux: ensure wrapper binaries (claude, etc.) take priority inside cmux
+if [[ -n "$CMUX_SURFACE_ID" ]]; then
+  export PATH="/Applications/cmux.app/Contents/Resources/bin:$PATH"
+fi
+
 # Source modular configuration files
 [[ -f "$ZDOTDIR/config/prompt.zsh" ]] && source "$ZDOTDIR/config/prompt.zsh"
 [[ -f "$ZDOTDIR/config/zoxide.zsh" ]] && source "$ZDOTDIR/config/zoxide.zsh"
@@ -29,6 +34,57 @@ export PATH=$PATH:$HOME/.spicetify
 
 # Obsidian CLI
 export PATH="$PATH:/Applications/Obsidian.app/Contents/MacOS"
+
+# Hugging Face (for Kokoro TTS model downloads)
+[[ -f "$ZDOTDIR/config/secrets.zsh" ]] && source "$ZDOTDIR/config/secrets.zsh"
+
+# Calibre + lue ebook reader
+book() {
+  local library="$HOME/Calibre"
+  local db="$library/metadata.db"
+  local progress_dir="$HOME/Library/Application Support/lue"
+  local selection
+
+  selection=$(sqlite3 "$db" "
+    SELECT b.title, '$library/' || b.path || '/' || d.name || '.' || LOWER(d.format)
+    FROM books b
+    JOIN data d ON b.id = d.book
+    WHERE LOWER(d.format) IN ('epub','pdf','txt','docx','doc','html','rtf','md')
+      AND b.id NOT IN (
+        SELECT btl.book FROM books_tags_link btl
+        JOIN tags t ON t.id = btl.tag WHERE LOWER(t.name) = 'hidden'
+      )
+    ORDER BY b.title COLLATE NOCASE
+  " | python3 -c "
+import sys, os, glob
+
+progress_dir = '$progress_dir'
+mtimes = {}
+for f in glob.glob(os.path.join(progress_dir, '*.progress.json')):
+    mtimes[os.path.basename(f).replace('.progress.json', '').lower()] = os.path.getmtime(f)
+
+import re
+recent, rest = [], []
+for line in sys.stdin:
+    line = line.rstrip('\n')
+    title, path = line.split('|', 1)
+    filename = os.path.splitext(os.path.basename(path))[0]
+    key = re.sub(r'[^A-Za-z0-9]+', '', filename).lower()
+    if key in mtimes:
+        recent.append((mtimes[key], title, path))
+    else:
+        rest.append((title, path))
+
+recent.sort(key=lambda x: -x[0])
+for _, title, path in recent:
+    print(f'{title}\t{path}')
+for title, path in rest:
+    print(f'{title}\t{path}')
+" | fzf --reverse --with-nth=1 --delimiter='\t' --no-sort --prompt='  ' \
+    | cut -f2)
+
+  [[ -n "$selection" ]] && lue "$selection"
+}
 
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"

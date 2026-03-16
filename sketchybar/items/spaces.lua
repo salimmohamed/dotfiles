@@ -18,8 +18,8 @@ local space_colors = {
 -- Build icon strip from app names in a workspace
 local function get_icon_strip(app_list)
   local icons = {}
-  for app in app_list:gmatch("[^\r\n]+") do
-    app = app:match("^%s*(.-)%s*$") -- trim whitespace
+  for raw_app in app_list:gmatch("[^\r\n]+") do
+    local app = raw_app:match("^%s*(.-)%s*$") -- trim whitespace
     if app ~= "" then
       local icon = app_icons[app] or app_icons["Default"] or ":default:"
       table.insert(icons, icon)

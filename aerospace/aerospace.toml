@@ -281,6 +281,11 @@ run = 'move-node-to-workspace C'
 if.app-id = 'com.google.antigravity'
 run = 'move-node-to-workspace C'
 
+# Workspace C: Zed
+[[on-window-detected]]
+if.app-id = 'dev.zed.Zed'
+run = 'move-node-to-workspace C'
+
 # Exempt Finder from tiling - keep it floating
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'

@@ -46,6 +46,7 @@ yarn-error.log*
 api_key
 credentials.json
 .secrets/
+zsh/config/secrets.zsh
 .git-credentials
 .gitconfig.local
 .netrc

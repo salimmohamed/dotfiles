@@ -2,7 +2,7 @@
 # Auto-launches into tmux session "main"
 
 # ─── Shell ────────────────────────────────────────────────────────────
-command = /opt/homebrew/bin/tmux new-session -A -s main
+command = /bin/zsh -c 'if [ -n "$CMUX_SOCKET_PATH" ]; then exec /bin/zsh -l; else exec /opt/homebrew/bin/tmux new-session -A -s main; fi'
 
 # ─── Font ─────────────────────────────────────────────────────────────
 font-family = JetBrainsMono Nerd Font
