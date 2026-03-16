@@ -1,10 +1,14 @@
-# Dotfiles
+# Salim's Dotfiles
 
-My macOS development environment. Terminal-first, unified under [Catppuccin Mocha](https://github.com/catppuccin/catppuccin).
+My macOS development environment. Terminal-first, keyboard-driven, and themed end-to-end with [Catppuccin Mocha](https://github.com/catppuccin/catppuccin).
+
+[![macOS](https://img.shields.io/badge/macOS-Sequoia-000000?logo=apple&logoColor=white)](https://www.apple.com/macos/)
+[![License](https://img.shields.io/github/license/salimmohamed/dotfiles)](LICENSE)
+[![Catppuccin](https://img.shields.io/badge/theme-Catppuccin%20Mocha-b4befe?logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiI+PHRleHQgeD0iMCIgeT0iMTIiIGZvbnQtc2l6ZT0iMTIiPvCfkr48L3RleHQ+PC9zdmc+)](https://github.com/catppuccin/catppuccin)
 
 ![Setup](.assets/setup.png)
 
-**AeroSpace** / **Sketchybar** / **Ghostty** / **tmux** / **Zed** / **Zsh** / **Starship** / **Lue** / **Spicetify**
+> Tiling windows with AeroSpace, a Lua-powered status bar, Ghostty + tmux for terminal life, Zed for code, and offline TTS audiobook reading — all wired together with vim keybindings.
 
 ## What's Inside
 
