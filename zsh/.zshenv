@@ -5,3 +5,4 @@
 export PATH="$HOME/.local/bin:$PATH"
 
 # Add custom environment variables here
+. "$HOME/.cargo/env"

@@ -114,6 +114,9 @@ acli/
 .claude/
 claude-hooks/projects.json
 
+# ─── T3 Code ──────────────────────────────────────────────────────────────
+favicon.svg
+
 # ─── Untracked Projects ────────────────────────────────────────────────────
 ccstatusline/
 mole/

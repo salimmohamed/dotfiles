@@ -15,7 +15,7 @@ after-startup-command = [
 
 # Notify sketchybar about workspace changes
 exec-on-workspace-change = ['/bin/bash', '-c',
-    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE PREV_WORKSPACE=$AEROSPACE_PREV_WORKSPACE && ~/.config/aerospace/follow-floats.sh'
+    '~/.config/aerospace/workspace-change.sh'
 ]
 
 # Start AeroSpace at login
@@ -246,6 +246,10 @@ run = 'move-node-to-workspace S'
 # Workspace 4: Messaging
 [[on-window-detected]]
 if.app-id = 'com.hnc.Discord'
+run = 'move-node-to-workspace 4'
+
+[[on-window-detected]]
+if.app-id = 'dev.vencord.vesktop'
 run = 'move-node-to-workspace 4'
 
 [[on-window-detected]]
