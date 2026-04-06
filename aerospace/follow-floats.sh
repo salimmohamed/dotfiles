@@ -1,7 +1,8 @@
 #!/bin/bash
 # Moves floating app windows to the current workspace when switching workspaces
 
-current_workspace=$(aerospace list-workspaces --focused)
+current_workspace="${1:-$(/opt/homebrew/bin/aerospace list-workspaces --focused 2>/dev/null)}"
+[ -n "$current_workspace" ] || exit 0
 
 # List of floating app IDs (from aerospace.toml)
 floating_apps=(
@@ -20,7 +21,8 @@ floating_apps=(
 )
 
 for app_id in "${floating_apps[@]}"; do
-  aerospace list-windows --app-id "$app_id" 2>/dev/null | awk '{print $1}' | while read window_id; do
-    [ -n "$window_id" ] && aerospace move-node-to-workspace --window-id "$window_id" "$current_workspace" 2>/dev/null
-  done
+  while read -r window_id; do
+    [ -n "$window_id" ] || continue
+    /opt/homebrew/bin/aerospace move-node-to-workspace --window-id "$window_id" "$current_workspace" 2>/dev/null
+  done < <(/opt/homebrew/bin/aerospace list-windows --app-id "$app_id" --format '%{window-id}' 2>/dev/null)
 done

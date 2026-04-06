@@ -18,6 +18,20 @@ alias spyder-uninstall='rm -rf ~/.spyder-py3'
 alias tb='tmux-boot'
 alias rh='rehoboam'
 alias c='claude'
+restart-bars() {
+  pkill -f '/Users/sm/.config/aerospace/follow-floats.sh' 2>/dev/null || true
+  pkill -f 'sketchybar --trigger aerospace_workspace_change' 2>/dev/null || true
+
+  osascript -e 'tell application "AeroSpace" to quit' >/dev/null 2>&1 || true
+  sleep 1
+  pgrep -x AeroSpace >/dev/null && pkill -x AeroSpace 2>/dev/null || true
+
+  brew services restart sketchybar >/dev/null 2>&1
+  open -a AeroSpace >/dev/null 2>&1
+
+  printf 'Restarted AeroSpace and SketchyBar.\n'
+}
+alias rbars='restart-bars'
 tka() {
   tmux kill-server 2>/dev/null || true
   while tmux has-session 2>/dev/null; do sleep 0.1; done
@@ -88,3 +102,5 @@ for title, path in rest:
 
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
+
