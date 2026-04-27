@@ -120,3 +120,9 @@ favicon.svg
 # ─── Untracked Projects ────────────────────────────────────────────────────
 ccstatusline/
 mole/
+
+# ─── Cloud SDK State (contains credentials & logs — never commit) ──────────
+gcloud/
+
+# ─── opencode (node_modules, lockfiles) ────────────────────────────────────
+opencode/

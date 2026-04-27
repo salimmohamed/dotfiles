@@ -272,6 +272,10 @@ run = 'move-node-to-workspace 4'
 if.app-id = 'com.philipyoungg.session'
 run = 'move-node-to-workspace 4'
 
+[[on-window-detected]]
+if.app-id = 'dev.vencord.vesktop'
+run = 'move-node-to-workspace 4'
+
 # Workspace C: Coding
 [[on-window-detected]]
 if.app-id = 'com.microsoft.VSCode'
@@ -289,6 +293,16 @@ run = 'move-node-to-workspace C'
 [[on-window-detected]]
 if.app-id = 'dev.zed.Zed'
 run = 'move-node-to-workspace C'
+
+# Workspace 1: T3 Code
+[[on-window-detected]]
+if.app-id = 'com.t3tools.t3code'
+run = 'move-node-to-workspace 1'
+
+# Workspace 1: Codex
+[[on-window-detected]]
+if.app-id = 'com.openai.codex'
+run = 'move-node-to-workspace 1'
 
 # Exempt Finder from tiling - keep it floating
 [[on-window-detected]]

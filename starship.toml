@@ -38,6 +38,7 @@ style = "bold yellow"
 read_only = " 🔒"
 
 [git_branch]
+disabled = true
 symbol = " "
 format = "on [$symbol$branch(:$remote_branch)]($style) "
 style = "bold purple"
