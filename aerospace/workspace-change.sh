@@ -8,7 +8,7 @@ prev_workspace="${AEROSPACE_PREV_WORKSPACE:-}"
 (
   sleep 0.05
 
-  /Users/sm/.config/aerospace/follow-floats.sh "$focused_workspace"
+  "$HOME/.config/aerospace/follow-floats.sh" "$focused_workspace"
 
   if [ -z "$focused_workspace" ]; then
     focused_workspace=$(/opt/homebrew/bin/aerospace list-workspaces --focused 2>/dev/null)

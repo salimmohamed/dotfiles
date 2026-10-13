@@ -1,10 +1,14 @@
 # Login shell configuration
 # This file is sourced for login shells
 
-# Initialize Homebrew environment
-eval "$(/opt/homebrew/bin/brew shellenv)"
+# Initialize Homebrew environment (Apple Silicon, then Intel)
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -x /usr/local/bin/brew ]]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
 
-# Add local bin to PATH (for ralph, etc.)
+# Add local bin to PATH (user scripts, claude, uv)
 export PATH="$HOME/.local/bin:$PATH"
 
 # Added by OrbStack: command-line tools and integration

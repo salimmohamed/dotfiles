@@ -118,8 +118,11 @@ claude-hooks/projects.json
 favicon.svg
 
 # ─── Untracked Projects ────────────────────────────────────────────────────
-ccstatusline/
 mole/
+
+# ─── App State (created by apps at runtime, not config) ────────────────────
+1Password/
+zed/prompts/**/lock.mdb
 
 # ─── Cloud SDK State (contains credentials & logs — never commit) ──────────
 gcloud/

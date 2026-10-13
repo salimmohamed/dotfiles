@@ -1,0 +1,6 @@
+# Global git config (XDG location, read alongside ~/.gitconfig)
+# Machine-specific settings (credential helpers, etc.) belong in ~/.gitconfig
+
+[user]
+	name = salimmohamed
+	email = mohamsal@oregonstate.edu

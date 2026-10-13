@@ -2,7 +2,7 @@
 # https://github.com/ajeetdsouza/zoxide
 
 # Initialize zoxide
-eval "$(zoxide init zsh)"
+(( $+commands[zoxide] )) && eval "$(zoxide init zsh)"
 
 # Optional: Add custom aliases for zoxide
 # Uncomment the following lines if you want to replace cd with zoxide:

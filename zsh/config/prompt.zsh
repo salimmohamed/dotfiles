@@ -2,4 +2,4 @@
 # https://starship.rs/
 
 # Initialize Starship
-eval "$(starship init zsh)"
+(( $+commands[starship] )) && eval "$(starship init zsh)"

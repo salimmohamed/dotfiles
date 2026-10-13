@@ -1,0 +1,84 @@
+{
+  "version": 4,
+  "lines": [
+    [
+      {
+        "id": "1",
+        "type": "custom-command",
+        "color": "#89b4fa",
+        "commandPath": "jq -r '.cwd // .workspace.current_dir // \"\"' | xargs basename"
+      },
+      {
+        "id": "2",
+        "type": "separator"
+      },
+      {
+        "id": "3",
+        "type": "custom-text",
+        "color": "#a6adc8",
+        "customText": "ctx: "
+      },
+      {
+        "id": "4",
+        "type": "context-percentage",
+        "color": "#a6adc8",
+        "rawValue": true
+      },
+      {
+        "id": "5",
+        "type": "separator"
+      },
+      {
+        "id": "6",
+        "type": "custom-text",
+        "color": "#a6adc8",
+        "customText": "block: "
+      },
+      {
+        "id": "7",
+        "type": "block-timer",
+        "color": "#a6adc8",
+        "rawValue": true
+      },
+      {
+        "id": "8",
+        "type": "separator"
+      },
+      {
+        "id": "9",
+        "type": "git-branch",
+        "color": "#cba6f7",
+        "rawValue": true
+      },
+      {
+        "id": "10",
+        "type": "separator"
+      },
+      {
+        "id": "11",
+        "type": "custom-command",
+        "color": "#f9e2af",
+        "commandPath": "cd \"$(jq -r '.cwd // .workspace.current_dir // \".\"')\" && git diff --shortstat 2>/dev/null | awk '{for(i=1;i<=NF;i++){if($(i+1)~/insert/)printf\"+\"$i;if($(i+1)~/delet/)printf\",-\"$i}}' || true"
+      }
+    ],
+    [],
+    []
+  ],
+  "flexMode": "full-minus-40",
+  "compactThreshold": 60,
+  "colorLevel": 3,
+  "inheritSeparatorColors": false,
+  "globalBold": false,
+  "powerline": {
+    "enabled": false,
+    "separators": [
+      ""
+    ],
+    "separatorInvertBackground": [
+      false
+    ],
+    "startCaps": [],
+    "endCaps": [],
+    "autoAlign": false
+  }
+}

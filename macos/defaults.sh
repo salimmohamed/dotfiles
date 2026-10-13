@@ -31,8 +31,8 @@ print_header() {
     echo -e "${BLUE}========================================${NC}\n"
 }
 
-# Close System Preferences to prevent overriding changes
-osascript -e 'tell application "System Preferences" to quit'
+# Close System Settings to prevent overriding changes
+osascript -e 'tell application "System Settings" to quit' 2>/dev/null || true
 
 #===============================================================================
 # General UI/UX
@@ -152,7 +152,8 @@ chflags nohidden ~/Library
 print_success "Unhid ~/Library folder"
 
 # Show the /Volumes folder
-sudo chflags nohidden /Volumes
+# Needs admin; skip quietly if no cached sudo credentials
+sudo -n chflags nohidden /Volumes 2>/dev/null || true
 print_success "Unhid /Volumes folder"
 
 #===============================================================================
@@ -162,8 +163,11 @@ print_success "Unhid /Volumes folder"
 print_header "Dock"
 
 # Set the icon size of Dock items
-defaults write com.apple.dock tilesize -int 48
-print_success "Set Dock icon size to 48"
+defaults write com.apple.dock tilesize -int 33
+print_success "Set Dock icon size to 33"
+
+defaults write com.apple.dock autohide -bool true
+print_success "Auto-hide the Dock"
 
 # Don't automatically rearrange Spaces based on most recent use
 defaults write com.apple.dock mru-spaces -bool false
@@ -221,6 +225,24 @@ print_success "Show battery percentage"
 # Show date and time in menu bar
 defaults write com.apple.menuextra.clock DateFormat -string "EEE d MMM HH:mm"
 print_success "Set menu bar clock format"
+
+# Hide the native menu bar (Sketchybar replaces it)
+defaults write NSGlobalDomain _HIHideMenuBar -bool true
+print_success "Auto-hide the menu bar"
+
+#===============================================================================
+# Appearance & Windows
+#===============================================================================
+
+print_header "Appearance & Windows"
+
+# Dark mode
+defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
+print_success "Enabled dark mode"
+
+# No margins around macOS-tiled windows
+defaults write com.apple.WindowManager EnableTiledWindowMargins -bool false
+print_success "Disabled tiled window margins"
 
 #===============================================================================
 # Activity Monitor
