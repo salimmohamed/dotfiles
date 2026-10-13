@@ -98,6 +98,16 @@ echo -e "${BLUE}macOS:${NC}    $(sw_vers -productVersion) ($(uname -m))"
 # Steps
 #===============================================================================
 
+# Homebrew only loads third-party tap formulae/casks once the tap is trusted.
+# Trust exactly the taps the Brewfile declares.
+trust_taps() {
+    local taps
+    taps=$(awk -F'"' '/^tap /{print $2}' "$DOTFILES_DIR/Brewfile")
+    [[ -n "$taps" ]] || return 0
+    # shellcheck disable=SC2086
+    run brew trust --quiet --tap $taps >/dev/null
+}
+
 brew_packages() {
     if [[ "$SKIP_BREW" == true ]]; then
         print_info "Skipped (--skip-brew)"
@@ -107,6 +117,8 @@ brew_packages() {
         print_error "Homebrew not installed. Run install.sh, or install it from https://brew.sh"
         return 1
     fi
+    trust_taps || return 1
+    print_success "Trusted Brewfile taps"
     print_info "Installing from Brewfile (this takes a while on a fresh Mac)..."
     print_info "Mac App Store apps need you to be signed in to the App Store"
     run brew bundle --file="$DOTFILES_DIR/Brewfile"
@@ -248,8 +260,10 @@ services() {
     has brew || return 1
     local svc ok=0
     for svc in sketchybar borders; do
-        if brew list --formula "$svc" &>/dev/null; then
-            if run brew services start "$svc" >/dev/null; then
+        if pgrep -x "$svc" >/dev/null; then
+            print_success "$svc already running"
+        elif brew list --formula "$svc" &>/dev/null; then
+            if trust_taps && run brew services start "$svc" >/dev/null; then
                 print_success "Started $svc"
             else
                 ok=1
