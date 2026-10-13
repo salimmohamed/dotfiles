@@ -87,7 +87,7 @@ done
 print_header "Dotfiles → $DEST"
 if git -C "$DEST" rev-parse --is-inside-work-tree &>/dev/null; then
     print_success "Repo already present"
-    if [[ -z "$(git -C "$DEST" status --porcelain)" ]]; then
+    if [[ -z "$(git -C "$DEST" status --porcelain --untracked-files=no)" ]]; then
         if git -C "$DEST" pull -q --ff-only; then
             print_success "Pulled latest"
         else
