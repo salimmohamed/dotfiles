@@ -38,7 +38,7 @@ fi
 
 # When piped from curl, stdin is the script itself; prompts must read the terminal
 TTY=/dev/tty
-[[ -r "$TTY" ]] || TTY=/dev/null
+( : < "$TTY" ) 2>/dev/null || TTY=/dev/null
 
 #===============================================================================
 # sudo (Homebrew needs it once; keep it alive for the whole install)
