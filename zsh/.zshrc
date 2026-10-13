@@ -17,9 +17,9 @@ alias spyder-uninstall='rm -rf ~/.spyder-py3'
 # Tmux workflow
 alias tb='tmux-boot'
 alias rh='rehoboam'
-alias c='claude'
+alias c='claude --dangerously-skip-permissions'
 restart-bars() {
-  pkill -f '/Users/sm/.config/aerospace/follow-floats.sh' 2>/dev/null || true
+  pkill -f "$HOME/.config/aerospace/follow-floats.sh" 2>/dev/null || true
   pkill -f 'sketchybar --trigger aerospace_workspace_change' 2>/dev/null || true
 
   osascript -e 'tell application "AeroSpace" to quit' >/dev/null 2>&1 || true
