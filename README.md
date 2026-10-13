@@ -25,7 +25,7 @@ My macOS development environment. Terminal-first, keyboard-driven, and themed en
 | [Starship](https://starship.rs) | Prompt | `starship.toml` |
 | [Lue](https://github.com/superstarryeyes/lue) | Terminal eBook reader with TTS | `lue/` |
 | [JankyBorders](https://github.com/FelixKratz/JankyBorders) | Window borders | `borders/` |
-| [Spicetify](https://spicetify.app) + [SpotX](https://github.com/SpotX-Official/SpotX-Bash) | Spotify theming + ad blocking | `spicetify/` |
+| [Spicetify](https://spicetify.app) | Spotify theming | `spicetify/` |
 | [Brewfile](https://github.com/Homebrew/homebrew-bundle) | Package management | `Brewfile` |
 
 ## Architecture
@@ -129,7 +129,7 @@ Terminal multiplexer with session persistence and a which-key menu for discovera
 
 ## Neovim
 
-My primary editors are VS Code and Cursor, but Neovim is kept configured for quick terminal editing when I need to jump into a file without leaving the terminal. LazyVim-based, focused on distraction-free editing.
+Zed is my primary editor, but Neovim is kept configured for quick terminal editing when I need to jump into a file without leaving the terminal. LazyVim-based, focused on distraction-free editing.
 
 - **Framework:** [LazyVim](https://www.lazyvim.org/) with selective customization
 - **Diagnostics:** All sign column indicators hidden (clean gutter)
@@ -159,8 +159,8 @@ Zsh shell with XDG-compliant config directory and Starship prompt.
 
 **Shell architecture:**
 - `home/.zshenv` → sets `ZDOTDIR=~/.config/zsh` (redirects all zsh config to XDG location)
-- `zsh/.zshenv` → adds `~/.local/bin` to PATH
-- `zsh/.zprofile` → initializes Homebrew, loads OrbStack integration
+- `zsh/.zshenv` → adds `~/.local/bin` to PATH, loads the Rust/cargo env
+- `zsh/.zprofile` → initializes Homebrew (Apple Silicon or Intel), loads OrbStack integration
 - `zsh/.zshrc` → sources config modules, sets aliases, adds tool paths
 
 **Config modules:**
@@ -173,7 +173,9 @@ Zsh shell with XDG-compliant config directory and Starship prompt.
 - `rh` — Switch to rehoboam control session
 - `tka` — Kill all tmux sessions, clear resurrect state, close Ghostty
 - `book` — Fuzzy-search Calibre library and open in Lue (sorted by recently read, hides books tagged "hidden")
-- `c` — Shortcut for `claude`
+- `c` — Shortcut for `claude --dangerously-skip-permissions`
+- `rbars` — Restart AeroSpace and Sketchybar
+- Secrets (e.g. `HF_TOKEN`) live in `zsh/config/secrets.zsh` (gitignored, created from `secrets.zsh.example`)
 
 **Starship prompt:**
 - Two-line format with green bracket styling
@@ -217,14 +219,14 @@ Terminal-based eBook reader with offline TTS, integrated with Calibre library. P
 
 Primary code editor, configured at `zed/settings.json`.
 
-## Spicetify + SpotX (Spotify)
+## Spicetify (Spotify)
 
 ![Spotify](.assets/spotify.png)
 
 - **Theme:** Catppuccin Mocha via the marketplace
-- **SpotX:** Ad blocking with auto-update blocker
 - CSS injection enabled, custom apps (marketplace), experimental features
-- Managed via `/spotify` skill: SpotX first (patches executable), then Spicetify (layers UI)
+- Spotify's own updater is blocked so updates don't wipe the theme
+- **Updating:** the `Update Spotify + Spicetify` Raycast command (`scripts/raycast-commands/spotify-update.sh`) closes Spotify, upgrades Spicetify and Spotify, then reapplies the theme in the right order
 
 ## Alcove (Dynamic Island)
 
@@ -243,7 +245,8 @@ The `macos/defaults.sh` script configures system preferences:
 - **Keyboard:** 2x faster key repeat, no auto-correct, no smart quotes/dashes
 - **Trackpad:** Tap to click, three-finger drag
 - **Finder:** Show hidden files + all extensions, path bar, list view by default, search current folder, no .DS_Store on network/USB volumes, show ~/Library
-- **Dock:** 48px icons, don't auto-rearrange Spaces, hide recent apps
+- **Dock:** Auto-hide, 33px icons, don't auto-rearrange Spaces, hide recent apps
+- **Appearance:** Dark mode, native menu bar hidden (Sketchybar replaces it), no tiled-window margins
 - **Screenshots:** Save to ~/Downloads, PNG format, no shadows
 - **Hot corners:** Top-left → Mission Control
 - **Menu bar:** Battery percentage, custom time format
@@ -303,69 +306,94 @@ The `macos/defaults.sh` script configures system preferences:
 
 Interactive project session launcher using `gum` for terminal UI.
 
-- Reads project definitions from `~/.config/claude-hooks/projects.json`
-- Sorts projects by zoxide frecency scores
+- Reads project definitions from `~/.config/claude-hooks/projects.json` (gitignored; created from `projects.example.json`)
+- Sorts projects by priority, or by zoxide frecency with `--frecency`
 - Multi-select with `gum choose` (Catppuccin-styled)
 - Each selected project gets its own tmux session with `claude` running
-- Always boots a "rehoboam" control session first
-- Usage: `tmux-boot` (interactive), `tmux-boot --all`, `tmux-boot --list`
+- Usage: `tmux-boot` (interactive), `--all`, `--list`, `--add`, `--remove`, `--frecency`
 
 ### nvim-clean-swaps (`scripts/bin/nvim-clean-swaps.sh`)
 
-Automatically cleans orphaned Neovim swap files on shell startup. Runs silently in the background.
+Cleans orphaned Neovim swap files.
+
+### vault-auto-pull (`scripts/bin/vault-auto-pull.sh`)
+
+Fast-forwards the Obsidian vault at `~/Learn/Notes` every 5 minutes (only on `main` with a clean tree). Runs from the LaunchAgent in `launchd/`.
+
+Everything in `scripts/bin/` is symlinked into `~/.local/bin`, so edits here are live immediately.
 
 ---
 
 ## Installation
 
-### Quick Start
+### Fresh Mac (one command)
 
 ```bash
-git clone https://github.com/salimmohamed/dotfiles.git ~/dotfiles
-cd ~/dotfiles
-./scripts/bootstrap.sh
+curl -fsSL https://raw.githubusercontent.com/salimmohamed/dotfiles/master/install.sh | bash
 ```
+
+That's it. `install.sh` will:
+
+1. Ask for your password once (kept alive for the whole install)
+2. Install the Xcode Command Line Tools (click **Install** in the dialog)
+3. Install Homebrew
+4. Clone this repo straight into `~/.config` (anything already there is backed up to `~/.dotfiles-backup-<timestamp>/` and app folders are left in place)
+5. Run `scripts/bootstrap.sh`
+
+To also apply the macOS defaults without being asked: `... | bash -s -- --macos`
 
 ### What the Bootstrap Does
 
-1. Installs Homebrew (if missing)
-2. Installs all packages from the Brewfile
-3. Backs up existing dotfiles to `~/.dotfiles-backup-[timestamp]/`
-4. Creates symlinks:
-   - `~/.config` → `~/dotfiles`
-   - `~/.zshrc` → `~/dotfiles/home/.zshrc`
-   - `~/.zshenv` → `~/dotfiles/home/.zshenv`
-5. Installs user scripts to `~/.local/bin/`
-6. Installs TPM and tmux plugins
-7. Optionally applies macOS system defaults
+Every step is idempotent and a failed step doesn't stop the rest (failures are listed at the end), so re-running it is also how an existing Mac gets brought up to date.
+
+1. Trusts the Brewfile's taps (required since Homebrew 7) and runs `brew bundle`
+2. Symlinks `home/.zshenv` → `~/.zshenv` and `scripts/bin/*` → `~/.local/bin/` (real files in the way are backed up)
+3. Creates the gitignored local files from their examples (`claude-hooks/projects.json`, `zsh/config/secrets.zsh`)
+4. Installs TPM + tmux plugins
+5. Builds [SbarLua](https://github.com/FelixKratz/SbarLua) for Sketchybar
+6. Installs lue (`pipx`), Claude Code (native installer) and the Spicetify CLI
+7. Restores Neovim plugins from `lazy-lock.json`
+8. Loads LaunchAgents from `launchd/` (vault auto-pull, once the vault is cloned)
+9. Starts the Sketchybar and Borders services
+10. Optionally applies `macos/defaults.sh`
+11. Prints the remaining manual steps (permissions, sign-ins, Raycast, Spotify)
 
 ### Options
 
 ```bash
-./scripts/bootstrap.sh --dry-run     # Preview without changes
-./scripts/bootstrap.sh --skip-brew   # Skip Homebrew
-./scripts/bootstrap.sh --skip-macos  # Skip macOS defaults
+~/.config/scripts/bootstrap.sh --dry-run     # Preview every change
+~/.config/scripts/bootstrap.sh --skip-brew   # Skip brew bundle
+~/.config/scripts/bootstrap.sh --macos       # Apply macOS defaults without asking
+~/.config/scripts/bootstrap.sh --skip-macos  # Don't apply or ask
+~/.config/scripts/link.sh                    # Just (re)create the symlinks
+```
+
+### Keeping It Up to Date
+
+```bash
+brew bundle check --file=~/.config/Brewfile --verbose   # What's missing here
+brew bundle dump --file=- | diff - ~/.config/Brewfile    # What's installed but not tracked
 ```
 
 ### Automated Setup with Claude Code
 
-See [SETUP.md](SETUP.md) for step-by-step instructions that Claude Code can follow to fully replicate this environment on a fresh Mac.
+See [SETUP.md](SETUP.md) for instructions Claude Code can follow on a fresh Mac, including verification.
 
 ---
 
 ## Brewfile Summary
 
-**Taps:** Sketchybar/Borders (FelixKratz), AeroSpace, Bun, Supabase, Rehoboam
+**Taps:** AeroSpace, Sketchybar/Borders (FelixKratz), Bun, opencode, Supabase, Atlassian, Obsidian vault CLI
 
-**CLI Tools:** git, neovim (HEAD), ripgrep, fd, fzf, jq, lazygit, tmux, starship, zoxide, zsh-autosuggestions, gh, awscli, tailscale
+**CLI Tools:** git, neovim (HEAD), ripgrep, fd, fzf, jq, lazygit, tmux, starship, zoxide, zsh-autosuggestions, gum, gh, awscli, railway, render, supabase, tailscale, syncthing, ffmpeg, pandoc, mas
 
-**Languages:** Python 3.14, Node, Rust, Lua, Bun
+**Languages:** Python 3.14 / 3.12, Node, Bun, Rust, Lua, GCC
 
-**Applications:** Ghostty, Zed, Cursor, VSCode, AeroSpace, Alt-Tab, Raycast, Shottr, HiddenBar, AppCleaner, Screen Studio, Zoom, Parsec, Microsoft Office
+**Applications:** Ghostty, cmux, Zed, Cursor, VS Code, Claude, OrbStack, AeroSpace, AltTab, Raycast, Hidden Bar, Alcove, 1Password, Obsidian, TickTick, Arc, Chrome, Slack, Spotify, and more
 
-**Fonts:** JetBrainsMono Nerd Font, SF Mono, SF Pro
+**Fonts:** JetBrainsMono Nerd Font, SF Mono, SF Pro, sketchybar-app-font
 
-**44 VSCode extensions** including Claude Code, Catppuccin theme, GitLens, Copilot, Vim, Python/C++ tools, LaTeX, REST client
+**Also:** Mac App Store apps (via `mas`), global npm packages, cargo packages, and 39 VS Code extensions
 
 ---
 
@@ -376,6 +404,7 @@ See [SETUP.md](SETUP.md) for step-by-step instructions that Claude Code can foll
 ├── aerospace/                     # Tiling window manager
 │   ├── aerospace.toml             # Main config + keybindings
 │   ├── follow-floats.sh           # Floating window helper
+│   ├── workspace-change.sh        # Deferred workspace-change hook
 │   └── watch-reload.sh            # Auto-reload on config change
 ├── borders/
 │   └── bordersrc                  # Window border styling
@@ -383,12 +412,16 @@ See [SETUP.md](SETUP.md) for step-by-step instructions that Claude Code can foll
 │   └── config.yml                 # GitHub CLI preferences
 ├── ghostty/
 │   └── config                     # Terminal theme, font, keybindings
+├── ccstatusline/
+│   └── settings.json              # Claude Code status line
+├── claude-hooks/
+│   └── projects.example.json      # tmux-boot projects template
 ├── git/
+│   ├── config                     # Global git identity
 │   └── ignore                     # Global gitignore
 ├── home/                          # Files symlinked to ~/
-│   ├── .zshrc                     # → ~/.zshrc
-│   ├── .zshenv                    # → ~/.zshenv (sets ZDOTDIR)
-│   └── .bashrc                    # → ~/.bashrc
+│   └── .zshenv                    # → ~/.zshenv (sets ZDOTDIR)
+├── launchd/                       # LaunchAgents (vault auto-pull)
 ├── lue/                           # Terminal eBook reader
 │   └── keys.json                  # Vim-style keyboard shortcuts
 ├── macos/
@@ -398,10 +431,10 @@ See [SETUP.md](SETUP.md) for step-by-step instructions that Claude Code can foll
 │   ├── lua/config/                # Options, keymaps, autocmds
 │   └── lua/plugins/               # Plugin configs
 ├── scripts/
-│   ├── bootstrap.sh               # Main installer
-│   ├── symlink.sh                 # Symlink manager
-│   ├── backup.sh                  # Backup utility
-│   └── bin/                       # tmux-boot, nvim-clean-swaps
+│   ├── bootstrap.sh               # Main setup (idempotent)
+│   ├── link.sh                    # Symlink manager (with backups)
+│   ├── raycast-commands/          # Raycast script commands
+│   └── bin/                       # → ~/.local/bin (tmux-boot, etc.)
 ├── sketchybar/                    # Status bar (Lua-based)
 │   ├── init.lua                   # Entry point
 │   ├── bar.lua                    # Bar appearance
@@ -426,6 +459,7 @@ See [SETUP.md](SETUP.md) for step-by-step instructions that Claude Code can foll
 ├── catppuccin-mocha.md            # Full color palette reference
 ├── starship.toml                  # Prompt configuration
 ├── Brewfile                       # Homebrew packages
+├── install.sh                     # Fresh Mac one-liner installer
 ├── SETUP.md                       # Claude Code automated setup guide
 └── LICENSE                        # MIT
 ```
