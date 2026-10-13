@@ -215,7 +215,74 @@ spicetify_cli() {
         curl -fsSL https://raw.githubusercontent.com/spicetify/cli/main/install.sh | sh || return 1
         print_success "Spicetify installed"
     fi
-    print_info "Theme is applied later (Spotify has to run once first): see the checklist below"
+}
+
+spotify_theme() {
+    local app="/Applications/Spotify.app"
+    local prefs="$HOME/Library/Application Support/Spotify/prefs"
+    local spicetify="$HOME/.spicetify/spicetify"
+    has spicetify && spicetify="$(command -v spicetify)"
+
+    if [[ ! -d "$app" ]]; then
+        print_info "Spotify not installed, skipping"
+        return 0
+    fi
+    # Stock Spotify ships Apps/xpui.spa; Spicetify unpacks it into Apps/xpui/
+    if [[ ! -f "$app/Contents/Resources/Apps/xpui.spa" ]]; then
+        print_success "Spicetify theme already applied"
+        return 0
+    fi
+    [[ -x "$spicetify" ]] || { print_error "spicetify not installed"; return 1; }
+    if [[ "$DRY_RUN" == true ]]; then
+        echo -e "${YELLOW}[DRY-RUN]${NC} open Spotify once, then spicetify backup apply" >&2
+        return 0
+    fi
+
+    # Spicetify needs the prefs file Spotify writes on first launch
+    if [[ ! -f "$prefs" ]]; then
+        print_info "Launching Spotify once in the background to create its prefs..."
+        open -g -a "$app"
+        local tries=30
+        while [[ ! -f "$prefs" ]] && (( tries-- > 0 )); do sleep 2; done
+        osascript -e 'quit app "Spotify"' >/dev/null 2>&1 || true
+        sleep 3
+        pkill -x Spotify 2>/dev/null || true
+        [[ -f "$prefs" ]] || { print_error "Spotify didn't create its prefs; open it once, then re-run"; return 1; }
+    fi
+
+    yes | "$spicetify" -n backup apply >/dev/null || return 1
+    "$spicetify" -n spotify-updates block >/dev/null 2>&1 || true
+    print_success "Applied Catppuccin theme to Spotify"
+}
+
+# Interactive sign-ins that unlock later steps (only when a person is at the terminal)
+accounts() {
+    if [[ "$DRY_RUN" == true || ! -t 0 ]]; then
+        print_info "Skipped (needs an interactive terminal)"
+        return 0
+    fi
+    has gh || { print_error "gh not installed"; return 1; }
+
+    if gh auth status &>/dev/null; then
+        print_success "GitHub CLI signed in"
+    else
+        read -r -p "Sign in to GitHub now (needed to clone the Obsidian vault)? [Y/n] " reply
+        if [[ ! "$reply" =~ ^[Nn]$ ]]; then
+            gh auth login --web --git-protocol https && gh auth setup-git || return 1
+        fi
+    fi
+
+    local vault="$HOME/Learn/Notes"
+    if [[ -d "$vault/.git" ]]; then
+        print_success "Obsidian vault present"
+    elif gh auth status &>/dev/null; then
+        read -r -p "Clone the Obsidian vault to ~/Learn/Notes? [Y/n] " reply
+        if [[ ! "$reply" =~ ^[Nn]$ ]]; then
+            mkdir -p "$(dirname "$vault")"
+            git clone https://github.com/salimmohamed/Obsidian.git "$vault" || return 1
+            print_success "Cloned Obsidian vault"
+        fi
+    fi
 }
 
 neovim_plugins() {
@@ -275,6 +342,23 @@ services() {
     return $ok
 }
 
+# Open the apps that need Accessibility access so they prompt for it now
+launch_apps() {
+    local app launched=false
+    for app in AeroSpace AltTab "Hidden Bar" Raycast Alcove; do
+        [[ -d "/Applications/$app.app" ]] || continue
+        pgrep -fq "/Applications/$app.app/" && continue
+        run open -g -a "$app" && print_success "Opened $app"
+        launched=true
+    done
+    if [[ "$launched" == true ]]; then
+        run open "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility"
+        print_info "Allow the apps above in Privacy & Security → Accessibility"
+    else
+        print_success "Apps already running"
+    fi
+}
+
 macos_defaults() {
     if [[ "$MACOS" == ask ]]; then
         if [[ -t 0 ]]; then
@@ -303,9 +387,12 @@ step "SbarLua (Sketchybar)" sketchybar_lua
 step "lue (eBook reader)"   lue_reader
 step "Claude Code"          claude_code
 step "Spicetify"            spicetify_cli
+step "Spotify theme"        spotify_theme
+step "Accounts"             accounts
 step "Neovim plugins"       neovim_plugins
 step "Launch agents"        launch_agents
 step "Services"             services
+step "Launch apps"          launch_apps
 step "macOS defaults"       macos_defaults
 
 #===============================================================================
@@ -321,17 +408,14 @@ else
     print_success "All steps completed"
 fi
 
-echo -e "\n${BLUE}Manual steps (things that need a click or a sign-in):${NC}"
+echo -e "\n${BLUE}Left for you (sign-ins and permissions macOS won't let a script grant):${NC}"
 cat <<EOF
-  1. Open a new terminal (Ghostty) so zsh picks up the new config
-  2. Open AeroSpace, AltTab, Hidden Bar, Raycast and grant Accessibility access
-     (System Settings → Privacy & Security → Accessibility)
-  3. Raycast: replace Spotlight (⌘Space), and add the script commands folder
-     ~/.config/scripts/raycast-commands (Settings → Extensions → + → Add Script Directory)
-  4. Sign in: 1Password, gh (gh auth login && gh auth setup-git), Claude Code (claude)
-  5. Spotify: open it once, sign in, quit, then: spicetify backup apply
-  6. Fill in tokens in ~/.config/zsh/config/secrets.zsh
-  7. Clone your Obsidian vault to ~/Learn/Notes, then re-run this script to
-     enable the vault auto-pull agent
-  8. Log out and back in so macOS defaults (menu bar, Dock) fully apply
+  1. Open a new Ghostty window so zsh picks up the new config
+  2. Privacy & Security → Accessibility: allow AeroSpace, AltTab, Hidden Bar, Raycast
+  3. Raycast: set ⌘Space as its hotkey, and add ~/.config/scripts/raycast-commands
+     as a script directory (Settings → Extensions → + → Add Script Directory)
+  4. Sign in to 1Password, the App Store (then: brew bundle --file=~/.config/Brewfile
+     to get the App Store apps), and Claude Code (run: claude)
+  5. Optional: tokens in ~/.config/zsh/config/secrets.zsh
+  6. Log out and back in if macOS defaults were applied
 EOF

@@ -44,7 +44,8 @@ zsh -l -i -c 'echo $ZDOTDIR; command -v starship zoxide claude tmux-boot'
 
 Common failures and fixes:
 
-- **Mac App Store apps failed:** the user must sign in to the App Store, then re-run `brew bundle --file=~/.config/Brewfile`
+- **Mac App Store apps failed:** expected until the user signs in to the App Store; then re-run `brew bundle --file=~/.config/Brewfile`
+- **Spotify theme failed:** open Spotify once, quit it, then re-run the bootstrap (or `spicetify backup apply`)
 - **"Refusing to load formula ... from untrusted tap":** run `brew trust --tap <tap>` (the bootstrap does this for every `tap` in the Brewfile)
 - **A cask failed because the app already exists:** `brew install --cask --adopt <name>`
 - **Sketchybar blank:** check SbarLua exists at `~/.local/share/sketchybar_lua/sketchybar.so`, then `brew services restart sketchybar`
@@ -52,16 +53,15 @@ Common failures and fixes:
 
 ## 3. Manual steps (need the user)
 
-These need clicks, sign-ins or permissions, so walk the user through them:
+The bootstrap already themes Spotify, offers the GitHub sign-in, clones the Obsidian vault, and opens the apps that need permissions. What's left needs clicks or sign-ins macOS won't let a script do:
 
-1. **Accessibility:** open AeroSpace, AltTab, Hidden Bar and Raycast, and allow each in System Settings → Privacy & Security → Accessibility
-2. **Raycast:** replace Spotlight (⌘Space), and add `~/.config/scripts/raycast-commands` as a script directory (Settings → Extensions → + → Add Script Directory)
-3. **Sign-ins:** 1Password, App Store, `gh auth login && gh auth setup-git`, `claude`
-4. **Spotify:** open it once, sign in, quit, then run `spicetify backup apply`
-5. **Secrets:** fill in `~/.config/zsh/config/secrets.zsh` (e.g. `HF_TOKEN` for lue's Kokoro voice)
-6. **Obsidian vault:** clone it to `~/Learn/Notes`, then re-run `~/.config/scripts/bootstrap.sh --skip-brew` to enable the vault auto-pull agent
-7. **tmux-boot projects:** add projects with `tmux-boot --add` (stored in `~/.config/claude-hooks/projects.json`)
-8. **macOS defaults:** if skipped during bootstrap, run `~/.config/macos/defaults.sh`, then log out and back in
+1. **Accessibility:** allow AeroSpace, AltTab, Hidden Bar and Raycast in System Settings → Privacy & Security → Accessibility (the bootstrap opens this pane)
+2. **Raycast:** set ⌘Space as its hotkey, and add `~/.config/scripts/raycast-commands` as a script directory (Settings → Extensions → + → Add Script Directory)
+3. **Sign-ins:** 1Password, the App Store (then `brew bundle --file=~/.config/Brewfile` to install the App Store apps), and `claude`
+4. **If GitHub sign-in was skipped:** `gh auth login && gh auth setup-git`, then re-run `~/.config/scripts/bootstrap.sh --skip-brew` to clone the vault and load the auto-pull agent
+5. **Secrets (optional):** fill in `~/.config/zsh/config/secrets.zsh` (e.g. `HF_TOKEN` for lue's Kokoro voice)
+6. **tmux-boot projects:** add projects with `tmux-boot --add`
+7. **macOS defaults:** if skipped, run `~/.config/macos/defaults.sh`, then log out and back in
 
 ## Key commands after setup
 

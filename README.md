@@ -352,11 +352,14 @@ Every step is idempotent and a failed step doesn't stop the rest (failures are l
 4. Installs TPM + tmux plugins
 5. Builds [SbarLua](https://github.com/FelixKratz/SbarLua) for Sketchybar
 6. Installs lue (`pipx`), Claude Code (native installer) and the Spicetify CLI
-7. Restores Neovim plugins from `lazy-lock.json`
-8. Loads LaunchAgents from `launchd/` (vault auto-pull, once the vault is cloned)
-9. Starts the Sketchybar and Borders services
-10. Optionally applies `macos/defaults.sh`
-11. Prints the remaining manual steps (permissions, sign-ins, Raycast, Spotify)
+7. Themes Spotify (launches it once in the background if needed, then `spicetify backup apply`)
+8. Offers `gh auth login` and clones the Obsidian vault to `~/Learn/Notes`
+9. Restores Neovim plugins from `lazy-lock.json`
+10. Loads LaunchAgents from `launchd/` (vault auto-pull)
+11. Starts the Sketchybar and Borders services
+12. Opens AeroSpace, AltTab, Hidden Bar, Raycast and Alcove, plus the Accessibility settings pane
+13. Optionally applies `macos/defaults.sh`
+14. Prints what's left: permissions and sign-ins macOS won't let a script grant
 
 ### Options
 
