@@ -180,13 +180,13 @@ cask "font-sketchybar-app-font"    # App icons in Sketchybar
 # ========================================
 # Mac App Store (requires App Store sign-in)
 # ========================================
+# Not listed in the store anymore, install manually: Fusion 2 (dev.fusionapp.Fusion)
 mas "Bitwarden", id: 1352778147
-mas "Fusion 2", id: 6759285919
 mas "iMovie", id: 408981434
-mas "Keynote", id: 409183694
+mas "Keynote", id: 361285480
 mas "Kindle", id: 302584613
-mas "Numbers", id: 409203825
-mas "Pages", id: 409201541
+mas "Numbers", id: 361304891
+mas "Pages", id: 361309726
 mas "Streaks", id: 963034692
 mas "TestFlight", id: 899247664
 mas "Xcode", id: 497799835
