@@ -1,4 +1,5 @@
 # Tokyo Night (Night variant): https://github.com/folke/tokyonight.nvim
+# Every value is from the official palette; comments give its tokyonight.nvim name.
 name = "Tokyo Night"
 
 [official]
@@ -11,29 +12,29 @@ obsidian = "Tokyo Night"
 obsidian_repo = "tcmmichaelb139/obsidian-tokyonight"
 
 [colors]
-base = "#1a1b26"
-mantle = "#16161e"
-crust = "#0c0e14"
-surface0 = "#292e42"
-surface1 = "#3b4261"
-surface2 = "#414868"
-overlay0 = "#565f89"
-overlay1 = "#737aa2"
-overlay2 = "#8a92bd"
-subtext0 = "#a9b1d6"
-subtext1 = "#b5bee6"
-text = "#c0caf5"
-rosewater = "#f4dbd6"
-flamingo = "#ff9eaf"
-pink = "#ff79c6"
-mauve = "#bb9af7"
-red = "#f7768e"
-maroon = "#db4b4b"
-peach = "#ff9e64"
-yellow = "#e0af68"
-green = "#9ece6a"
-teal = "#73daca"
-sky = "#7dcfff"
-sapphire = "#2ac3de"
-blue = "#7aa2f7"
-lavender = "#9d7cd8"
+base = "#1a1b26"       # bg
+mantle = "#16161e"     # bg_dark
+crust = "#0c0e14"      # bg_dark1
+surface0 = "#292e42"   # bg_highlight
+surface1 = "#3b4261"   # fg_gutter
+surface2 = "#414868"   # terminal_black
+overlay0 = "#565f89"   # comment
+overlay1 = "#737aa2"   # dark5
+overlay2 = "#a9b1d6"   # fg_dark
+subtext0 = "#a9b1d6"   # fg_dark
+subtext1 = "#a9b1d6"   # fg_dark
+text = "#c0caf5"       # fg
+rosewater = "#c0caf5"  # fg (Tokyo Night has no rosewater; its cursor is fg)
+flamingo = "#f7768e"   # red
+pink = "#ff007c"       # magenta2
+mauve = "#bb9af7"      # magenta
+red = "#f7768e"        # red
+maroon = "#db4b4b"     # red1
+peach = "#ff9e64"      # orange
+yellow = "#e0af68"     # yellow
+green = "#9ece6a"      # green
+teal = "#73daca"       # green1
+sky = "#7dcfff"        # cyan
+sapphire = "#2ac3de"   # blue1
+blue = "#7aa2f7"       # blue
+lavender = "#9d7cd8"   # purple
