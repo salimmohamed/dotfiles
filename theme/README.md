@@ -26,7 +26,7 @@ instead of the generated colors for apps that have hundreds of UI colors.
 | Spotify | `spicetify/Themes/palette/color.ini` | palette |
 | ccstatusline | colors rewritten in place (slot map: `apps/ccstatusline.json`) | palette |
 | Ghostty | `generated/ghostty.conf` (`config-file` include) | official, else palette |
-| Zed, VS Code, Obsidian | their settings files | official name (installed if missing) |
+| Zed, VS Code, Cursor, Obsidian | their settings files | official name (installed if missing) |
 
 Starship uses named terminal colors, so it follows Ghostty.
 

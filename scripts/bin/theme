@@ -32,6 +32,7 @@ BACKUPS = THEME_DIR / "backups"
 CURRENT = THEME_DIR / "current"
 
 VSCODE_SETTINGS = HOME / "Library/Application Support/Code/User/settings.json"
+CURSOR_SETTINGS = HOME / "Library/Application Support/Cursor/User/settings.json"
 ZED_SETTINGS = CONFIG / "zed/settings.json"
 ZED_EXTENSIONS = HOME / "Library/Application Support/Zed/extensions/installed"
 OBSIDIAN_VAULT = HOME / "Learn/Notes"
@@ -299,24 +300,33 @@ def apply_zed(t):
     ok("zed", name)
 
 
-def apply_vscode(t):
+def _apply_vscode_like(t, app, settings, cli):
+    """VS Code and its forks (Cursor) share extensions and the colorTheme setting."""
     name, ext = t["official"].get("vscode"), t["official"].get("vscode_extension")
-    if not VSCODE_SETTINGS.exists():
-        return warn("vscode", "settings.json not found")
+    if not settings.exists():
+        return warn(app, "settings.json not found")
     if not name:
         name = "Default Dark Modern"
-    if ext and shutil.which("code"):
-        installed = run("code", "--list-extensions", check=False).stdout.lower().split()
+    if ext and shutil.which(cli):
+        installed = run(cli, "--list-extensions", check=False).stdout.lower().split()
         if ext.lower() not in installed:
-            if run("code", "--install-extension", ext, check=False).returncode != 0:
-                return fail("vscode", f"couldn't install {ext}")
-    backup_once(VSCODE_SETTINGS)
-    text = VSCODE_SETTINGS.read_text()
+            if run(cli, "--install-extension", ext, check=False).returncode != 0:
+                return fail(app, f"couldn't install {ext}")
+    backup_once(settings)
+    text = settings.read_text()
     new, n = re.subn(r'("workbench\.colorTheme"\s*:\s*")[^"]*(")', rf"\g<1>{name}\g<2>", text)
     if n == 0:
-        return fail("vscode", '"workbench.colorTheme" not found in settings.json')
-    VSCODE_SETTINGS.write_text(new)
-    ok("vscode", name)
+        return fail(app, '"workbench.colorTheme" not found in settings.json')
+    settings.write_text(new)
+    ok(app, name)
+
+
+def apply_vscode(t):
+    _apply_vscode_like(t, "vscode", VSCODE_SETTINGS, "code")
+
+
+def apply_cursor(t):
+    _apply_vscode_like(t, "cursor", CURSOR_SETTINGS, "cursor")
 
 
 def apply_obsidian(t):
@@ -376,7 +386,7 @@ def switch(theme_id):
     CURRENT.write_text(theme_id + "\n")
 
     for step in (apply_sketchybar, apply_borders, apply_tmux, apply_ghostty, apply_ccstatusline,
-                 apply_zed, apply_vscode, apply_obsidian, apply_spotify):
+                 apply_zed, apply_vscode, apply_cursor, apply_obsidian, apply_spotify):
         try:
             step(t)
         except Exception as e:  # noqa: BLE001
