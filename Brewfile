@@ -149,7 +149,6 @@ cask "arc"                         # Browser
 cask "google-chrome"               # Browser
 cask "slack"                       # Chat
 cask "discord"                     # Chat
-cask "vesktop"                     # Discord client (Vencord)
 cask "zoom"                        # Video calls
 cask "parsec"                      # Remote desktop
 
