@@ -180,6 +180,7 @@ cask "font-sketchybar-app-font"    # App icons in Sketchybar
 # Mac App Store (requires App Store sign-in)
 # ========================================
 # Not listed in the store anymore, install manually: Fusion 2 (dev.fusionapp.Fusion)
+mas "Amphetamine", id: 937984704
 mas "Bitwarden", id: 1352778147
 mas "iMovie", id: 408981434
 mas "Keynote", id: 361285480
