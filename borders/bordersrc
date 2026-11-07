@@ -1,10 +1,13 @@
 #!/bin/bash
 
+# Colors come from the master theme (~/.config/theme). Switch with `theme <name>`.
+source "$HOME/.config/theme/generated/colors.sh"
+
 options=(
 	style=round
 	width=2.0
 	hidpi=on
-	active_color=0xff45475a   # Catppuccin Mocha Surface1 (matches SketchyBar border)
+	active_color=0xff${THEME_SURFACE1#\#}   # Surface1 (matches SketchyBar border)
 	inactive_color=0x00000000  # Transparent (hides aerospace hidden window artifacts)
 	order=above
 	blacklist="Screen Studio"

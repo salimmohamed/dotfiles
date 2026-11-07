@@ -129,3 +129,4 @@ gcloud/
 
 # ─── opencode (node_modules, lockfiles) ────────────────────────────────────
 opencode/
+theme/backups/

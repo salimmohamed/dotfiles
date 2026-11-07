@@ -11,4 +11,5 @@ unset _zas
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 # Suggestion color (subtle gray)
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#666666"
+[[ -r ~/.config/theme/generated/colors.sh ]] && source ~/.config/theme/generated/colors.sh
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=${THEME_OVERLAY0:-#6c7086}"

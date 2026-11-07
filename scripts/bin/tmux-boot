@@ -14,12 +14,13 @@ set -euo pipefail
 
 PROJECTS_JSON="${XDG_CONFIG_HOME:-$HOME/.config}/claude-hooks/projects.json"
 
-# Styling (Catppuccin Mocha theme)
-export GUM_CHOOSE_CURSOR_FOREGROUND="#89b4fa"
-export GUM_CHOOSE_SELECTED_FOREGROUND="#a6e3a1"
-export GUM_CHOOSE_HEADER_FOREGROUND="#cba6f7"
-export GUM_INPUT_CURSOR_FOREGROUND="#89b4fa"
-export GUM_INPUT_PROMPT_FOREGROUND="#cba6f7"
+# Styling from the master theme (~/.config/theme)
+source "${XDG_CONFIG_HOME:-$HOME/.config}/theme/generated/colors.sh"
+export GUM_CHOOSE_CURSOR_FOREGROUND="$THEME_BLUE"
+export GUM_CHOOSE_SELECTED_FOREGROUND="$THEME_GREEN"
+export GUM_CHOOSE_HEADER_FOREGROUND="$THEME_MAUVE"
+export GUM_INPUT_CURSOR_FOREGROUND="$THEME_BLUE"
+export GUM_INPUT_PROMPT_FOREGROUND="$THEME_MAUVE"
 
 # Check dependencies
 check_deps() {

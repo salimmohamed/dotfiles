@@ -252,7 +252,7 @@ spotify_theme() {
 
     yes | "$spicetify" -n backup apply >/dev/null || return 1
     "$spicetify" -n spotify-updates block >/dev/null 2>&1 || true
-    print_success "Applied Catppuccin theme to Spotify"
+    print_success "Applied theme to Spotify"
 }
 
 # Interactive sign-ins that unlock later steps (only when a person is at the terminal)

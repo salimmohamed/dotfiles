@@ -9,8 +9,8 @@ font-family = JetBrainsMono Nerd Font
 font-size = 18
 
 # ─── Theme ────────────────────────────────────────────────────────────
-# NOTE: Ghostty 1.2.0+ uses Title Case with space (not kebab-case)
-theme = Catppuccin Mocha
+# Set by the master theme in ~/.config/theme. Switch with `theme <name>`.
+config-file = ?../theme/generated/ghostty.conf
 
 # ─── Window ───────────────────────────────────────────────────────────
 background-opacity = 0.7
