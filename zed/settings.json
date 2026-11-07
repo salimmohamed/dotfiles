@@ -46,6 +46,6 @@
   "theme": {
     "mode": "system",
     "light": "One Light",
-    "dark": "Nord Dark",
+    "dark": "Catppuccin Mocha",
   },
 }

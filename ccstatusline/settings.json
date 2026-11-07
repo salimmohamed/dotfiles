@@ -5,7 +5,7 @@
       {
         "id": "1",
         "type": "custom-command",
-        "color": "#81a1c1",
+        "color": "#89b4fa",
         "commandPath": "jq -r '.cwd // .workspace.current_dir // \"\"' | xargs basename"
       },
       {
@@ -15,13 +15,13 @@
       {
         "id": "3",
         "type": "custom-text",
-        "color": "#d8dee9",
+        "color": "#a6adc8",
         "customText": "ctx: "
       },
       {
         "id": "4",
         "type": "context-percentage",
-        "color": "#d8dee9",
+        "color": "#a6adc8",
         "rawValue": true
       },
       {
@@ -31,13 +31,13 @@
       {
         "id": "6",
         "type": "custom-text",
-        "color": "#d8dee9",
+        "color": "#a6adc8",
         "customText": "block: "
       },
       {
         "id": "7",
         "type": "block-timer",
-        "color": "#d8dee9",
+        "color": "#a6adc8",
         "rawValue": true
       },
       {
@@ -47,7 +47,7 @@
       {
         "id": "9",
         "type": "git-branch",
-        "color": "#b48ead",
+        "color": "#cba6f7",
         "rawValue": true
       },
       {
@@ -57,7 +57,7 @@
       {
         "id": "11",
         "type": "custom-command",
-        "color": "#ebcb8b",
+        "color": "#f9e2af",
         "commandPath": "cd \"$(jq -r '.cwd // .workspace.current_dir // \".\"')\" && git diff --shortstat 2>/dev/null | awk '{for(i=1;i<=NF;i++){if($(i+1)~/insert/)printf\"+\"$i;if($(i+1)~/delet/)printf\",-\"$i}}' || true"
       }
     ],
