@@ -34,30 +34,30 @@ local function get_color_for_pct(pct)
   return colors.cyan
 end
 
+-- Query the Claude provider explicitly; `codexbar --json` returns every enabled
+-- provider (codex, claude, copilot, ...) so indexing .[0] is not reliable.
+local usage_cmd = [[codexbar usage --provider claude --json 2>/dev/null | jq -r '
+  map(select(.provider == "claude"))[0]
+  | if .usage then "\(.usage.primary.usedPercent // 0 | round) \(.usage.secondary.usedPercent // 0 | round)"
+    else "ERR" end' 2>/dev/null]]
+
 codexbar:subscribe({"routine", "forced", "system_woke"}, function()
-  sbar.exec([[codexbar --json 2>/dev/null | head -1 | jq -r '.[0].usage | "\(.primary.usedPercent) \(.secondary.usedPercent)"' 2>/dev/null]], function(result)
-    if result == "" or result == "null null\n" then
-      codexbar:set({ label = { string = "n/a", color = colors.grey } })
+  sbar.exec(usage_cmd, function(result)
+    local p5, p7 = tostring(result):match("^(%d+)%s+(%d+)")
+    if not (p5 and p7) then
+      codexbar:set({
+        label = { string = "n/a", color = colors.grey },
+        icon = { color = colors.grey },
+      })
       return
     end
 
-    local p5, p7 = result:match("(%d+)%s+(%d+)")
-    if p5 and p7 then
-      p5 = tonumber(p5)
-      p7 = tonumber(p7)
-      local label = "5h:" .. p5 .. "%  7d:" .. p7 .. "%"
-      local max_pct = math.max(p5, p7)
-
-      codexbar:set({
-        label = {
-          string = label,
-          color = get_color_for_pct(max_pct),
-        },
-        icon = { color = get_color_for_pct(max_pct) },
-      })
-    else
-      codexbar:set({ label = { string = "err", color = colors.red } })
-    end
+    p5, p7 = tonumber(p5), tonumber(p7)
+    local color = get_color_for_pct(math.max(p5, p7))
+    codexbar:set({
+      label = { string = "5h:" .. p5 .. "%  7d:" .. p7 .. "%", color = color },
+      icon = { color = color },
+    })
   end)
 end)
 
