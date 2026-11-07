@@ -54,7 +54,7 @@ sbar.add("item", "widgets.calendar.padding", {
 })
 
 cal_time:subscribe({"forced", "routine", "system_woke"}, function(env)
-  cal_time:set({ label = os.date("%I:%M %p"):lower() })
+  cal_time:set({ label = os.date("%I:%M%p"):lower() })
   cal_date:set({ label = os.date("%a %d %b") })
 end)
 
