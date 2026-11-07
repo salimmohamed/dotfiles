@@ -10,6 +10,7 @@ return {
 
   black = p.base,
   white = p.text,
+  dim = p.subtext0, -- secondary text (Tokyo Night fg_dark)
   red = p.red,
   green = p.green,
   blue = p.blue,
