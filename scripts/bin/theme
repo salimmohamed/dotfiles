@@ -67,6 +67,11 @@ def fail(app, note):
     results.append(("\033[31m✗\033[0m", app, note))
 
 
+def fetch(url):
+    req = urllib.request.Request(url, headers={"User-Agent": "dotfiles-theme/1.0"})
+    return urllib.request.urlopen(req, timeout=30).read()
+
+
 def run(*cmd, check=True):
     return subprocess.run(cmd, capture_output=True, text=True, check=check)
 
@@ -279,7 +284,7 @@ def apply_zed(t):
     if ext and not (ZED_EXTENSIONS / ext).exists():
         try:
             url = f"https://api.zed.dev/extensions/{ext}/download"
-            blob = urllib.request.urlopen(url, timeout=30).read()
+            blob = fetch(url)
             dest = ZED_EXTENSIONS / ext
             dest.mkdir(parents=True)
             with tarfile.open(fileobj=io.BytesIO(blob), mode="r:gz") as tar:
@@ -326,7 +331,7 @@ def apply_obsidian(t):
                 theme_dir.mkdir(parents=True, exist_ok=True)
                 for f in ("manifest.json", "theme.css"):
                     url = f"https://raw.githubusercontent.com/{repo}/HEAD/{f}"
-                    (theme_dir / f).write_bytes(urllib.request.urlopen(url, timeout=30).read())
+                    (theme_dir / f).write_bytes(fetch(url))
             except Exception as e:  # noqa: BLE001
                 shutil.rmtree(theme_dir, ignore_errors=True)
                 return fail("obsidian", f"couldn't download '{name}' from {repo}: {e}")
