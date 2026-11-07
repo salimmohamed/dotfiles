@@ -334,6 +334,11 @@ run = 'layout floating'
 if.app-id = 'com.timpler.screenstudio'
 run = 'layout floating'
 
+# Exempt Granola from tiling - keep it floating
+[[on-window-detected]]
+if.app-id = 'com.granola.app'
+run = 'layout floating'
+
 # Banish windowless menu bar apps to dead workspace
 [[on-window-detected]]
 if.app-id = 'com.apphousekitchen.aldente-pro'
