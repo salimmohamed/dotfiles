@@ -80,4 +80,4 @@ spicetify -n spotify-updates block >/dev/null 2>&1 || true
 
 # 6. Relaunch (by path: Launch Services may not know the new bundle yet)
 open "$APP"
-print_success "Done. Spotify $after with marketplace/mocha"
+print_success "Done. Spotify $after with the $(cat "$HOME/.config/theme/current" 2>/dev/null || echo palette) theme"
