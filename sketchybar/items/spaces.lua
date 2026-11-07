@@ -1,6 +1,7 @@
 local colors = require("colors")
 local settings = require("settings")
 local app_icons = require("helpers.app_icons")
+local custom_icons = require("helpers.app_icons_custom")
 
 local spaces = {}
 local space_ids = { "1", "2", "3", "4", "C", "S" }
@@ -21,7 +22,7 @@ local function get_icon_strip(app_list)
   for raw_app in app_list:gmatch("[^\r\n]+") do
     local app = raw_app:match("^%s*(.-)%s*$") -- trim whitespace
     if app ~= "" then
-      local icon = app_icons[app] or app_icons["Default"] or ":default:"
+      local icon = custom_icons[app] or app_icons[app] or app_icons["Default"] or ":default:"
       table.insert(icons, icon)
     end
   end
