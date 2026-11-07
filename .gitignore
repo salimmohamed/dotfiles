@@ -130,3 +130,7 @@ gcloud/
 # ─── opencode (node_modules, lockfiles) ────────────────────────────────────
 opencode/
 theme/backups/
+
+# ─── Python ─────────────────────────────────────────────────────────────────
+__pycache__/
+*.pyc
