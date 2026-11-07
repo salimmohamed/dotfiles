@@ -6,7 +6,7 @@ local custom_icons = require("helpers.app_icons_custom")
 local spaces = {}
 local space_ids = { "1", "2", "3", "4", "C", "S" }
 
--- Catppuccin colors matched to workspace identity
+-- Theme colors matched to workspace identity
 local space_colors = {
   ["1"] = colors.blue,      -- terminal (Ghostty)
   ["2"] = colors.green,     -- browsers
