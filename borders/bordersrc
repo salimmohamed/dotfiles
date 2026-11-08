@@ -10,7 +10,9 @@ options=(
 	active_color=0x99${THEME_BLUE#\#}   # theme blue at 60%: clear focus without being loud
 	inactive_color=0x00000000  # Transparent (hides aerospace hidden window artifacts)
 	order=above
-	blacklist="Screen Studio"
+	# App Store + Apple Pay purchase sheets: a border drawn above them counts as
+	# "occluding" the Touch ID prompt, which then cancels itself
+	blacklist="Screen Studio,App Store,AMSUIPaymentViewService_macOS,com.apple.PassKit.PaymentAuthorizationUIExtension,Wallet"
 )
 
 borders "${options[@]}"
